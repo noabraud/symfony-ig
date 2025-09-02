@@ -13,8 +13,14 @@ class CheapsharkApi
         $this->client = $c;
     }
     
-    public function getGame(int $id): array {
+    public function getGameLookup(int $id): array {
         $response = $this->client->request('GET', $this->baseUrl . 'games', ['query' => ['id' => $id]]);
+
+        return $response->toArray();
+    }
+
+    public function getDeals(): array {
+        $response = $this->client->request('GET', $this->baseUrl . 'deals?pageSize=10&sortBy=Savings');
 
         return $response->toArray();
     }

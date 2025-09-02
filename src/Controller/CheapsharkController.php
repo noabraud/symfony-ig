@@ -10,13 +10,22 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CheapsharkController extends AbstractController
 {
-    #[Route('/', name: 'app_cheapshark')]
+    #[Route('/', name: 'app_cheapshark_index')]
     public function index(CheapsharkApi $api): Response
     {
-        $game = $api->getGame(612);
+        $games = $api->getDeals();
 
         return $this->render('cheapshark/index.html.twig', [
-            'controller_name' => 'CheapsharkController',
+            'games' => $games,
+        ]);
+    }
+
+    #[Route('/game/{id}', name: 'app_cheapshark', methods: ['GET'])]
+    public function game(CheapsharkApi $api, int $id): Response
+    {
+        $game = $api->getGameLookup($id);
+
+        return $this->render('cheapshark/gamePage.html.twig', [
             'title' => $game['info']['title'],
             'image' => $game['info']['thumb'],
             'cheapest' => $game['cheapestPriceEver']['price'],
