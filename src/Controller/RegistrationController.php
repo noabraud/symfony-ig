@@ -17,7 +17,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use App\Repository\UserRepository;
 
-
 class RegistrationController extends AbstractController
 {
     public function __construct(private EmailVerifier $emailVerifier)
@@ -52,7 +51,7 @@ class RegistrationController extends AbstractController
 
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('app_verify_email');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -66,19 +65,17 @@ class RegistrationController extends AbstractController
         $id = $request->query->get('id'); // retrieve the user id from the url
         // Verify the user id exists and is not null
         if (null === $id) {
-          return $this->redirectToRoute('app_home');
+          return $this->redirectToRoute('app_main');
               }
 
         $user = $userRepository->find($id);
         // Ensure the user exists in persistence
         if (null === $user) {
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_main');
         }
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-            /** @var User $user */
-            $user = $this->getUser();
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
