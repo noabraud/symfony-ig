@@ -7,6 +7,8 @@ framework:
 
     #esi: true
     #fragments: true
+    router:
+        default_uri: '%env(APP_URL)%'
 
 when@test:
     framework:
