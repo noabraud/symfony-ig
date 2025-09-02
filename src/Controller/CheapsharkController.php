@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\CheapsharkApi;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -30,6 +31,20 @@ final class CheapsharkController extends AbstractController
             'image' => $game['info']['thumb'],
             'cheapest' => $game['cheapestPriceEver']['price'],
             'deals' => $game['deals'],
+        ]);
+    }
+
+    #[Route('/search', name: 'app_cheapshark_search', methods: ['GET'])]
+    public function search(Request $request, CheapsharkApi $api): Response
+    {
+        $title = $request->query->get('title');
+
+        if ($title) {
+            $games = $api->getGamesList($title);
+        }
+
+        return $this->render('cheapshark/searchPage.html.twig', [
+            'games' => $games,
         ]);
     }
 }

@@ -20,7 +20,13 @@ class CheapsharkApi
     }
 
     public function getDeals(): array {
-        $response = $this->client->request('GET', $this->baseUrl . 'deals?pageSize=10&sortBy=Savings');
+        $response = $this->client->request('GET', $this->baseUrl . 'deals?storeID=1,7,8,13,25,31&pageSize=10&sortBy=Savings');
+
+        return $response->toArray();
+    }
+
+    public function getGamesList(string $title): array {
+        $response = $this->client->request('GET', $this->baseUrl . 'deals', ['query' => ['title' => $title]]);
 
         return $response->toArray();
     }
