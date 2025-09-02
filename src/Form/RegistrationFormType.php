@@ -51,9 +51,9 @@ class RegistrationFormType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     // new PasswordStrength(), // Removed to fix unknown class error
+                    ]),
                     new PasswordStrength(),
                     new NotCompromisedPassword(),
-                    ]),
                 ],
             ])
         ;
