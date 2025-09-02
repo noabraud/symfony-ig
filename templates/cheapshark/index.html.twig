@@ -8,8 +8,26 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
+<div>
+    
+</div>
+
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>{{ title }}</h1>
+
+    <img src="{{ image }}" alt="{{ title }}">
+
+    <p>Prix le plus bas : {{ cheapest }}</p>
+
+    <h2>Deals disponibles :</h2>
+    <ul>
+        {% for deal in deals %}
+        <li>
+            Magasin {{ deal.storeID }} : {{ deal.price }}$ (au lieu de {{ deal.retailPrice }}$)
+        </li>
+        {% endfor %}
+
+    </ul>
 
     This friendly message is coming from:
     <ul>
