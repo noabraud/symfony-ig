@@ -13,22 +13,28 @@ class CheapsharkApi
         $this->client = $c;
     }
     
-    public function getGameLookup(int $id): array {
-        $response = $this->client->request('GET', $this->baseUrl . 'games', ['query' => ['id' => $id]]);
+    public function getFrom(string $field, array $options): array {
+        $response = $this->client->request('GET', $this->baseUrl . $field, ['query' => $options]);
 
         return $response->toArray();
     }
 
-    public function getDeals(): array {
-        $response = $this->client->request('GET', $this->baseUrl . 'deals?storeID=1,7,8,13,25,31&pageSize=10&sortBy=Savings');
+    // public function getGameLookup(int $id): array {
+    //     $response = $this->client->request('GET', $this->baseUrl . 'games', ['query' => ['id' => $id]]);
 
-        return $response->toArray();
-    }
+    //     return $response->toArray();
+    // }
 
-    public function getGamesList(string $title): array {
-        $response = $this->client->request('GET', $this->baseUrl . 'deals', ['query' => ['title' => $title]]);
+    // public function getDeals(): array {
+    //     $response = $this->client->request('GET', $this->baseUrl . 'deals?storeID=1,7,8,13,25,31&pageSize=10&sortBy=Savings');
 
-        return $response->toArray();
-    }
+    //     return $response->toArray();
+    // }
+
+    // public function getGamesList(string $title): array {
+    //     $response = $this->client->request('GET', $this->baseUrl . 'deals', ['query' => ['title' => $title]]);
+
+    //     return $response->toArray();
+    // }
 
 }

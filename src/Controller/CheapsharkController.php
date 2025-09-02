@@ -14,17 +14,21 @@ final class CheapsharkController extends AbstractController
     #[Route('/', name: 'app_cheapshark_index')]
     public function index(CheapsharkApi $api): Response
     {
-        $games = $api->getDeals();
+        $games = $api->getFrom('deals', ['storeID' => '1,7,8,13,25,31', 'pageSize' => '20', 'sortBy' => 'Savings']);
 
         return $this->render('cheapshark/index.html.twig', [
             'games' => $games,
         ]);
     }
 
-    #[Route('/game/{id}', name: 'app_cheapshark', methods: ['GET'])]
-    public function game(CheapsharkApi $api, int $id): Response
+    #[Route('/game', name: 'app_cheapshark', methods: ['GET'])]
+    public function game(Request $request, CheapsharkApi $api): Response
     {
-        $game = $api->getGameLookup($id);
+        $id = $request->query->get('id');
+
+        if ($id) {
+            $game = $api->getFrom('games', ['id' => $id]);
+        }
 
         return $this->render('cheapshark/gamePage.html.twig', [
             'title' => $game['info']['title'],
@@ -40,7 +44,7 @@ final class CheapsharkController extends AbstractController
         $title = $request->query->get('title');
 
         if ($title) {
-            $games = $api->getGamesList($title);
+            $games = $api->getFrom('deals', ['title' => $title, 'storeID' => '1,7,8,13,25,31', 'pageSize' => '20', 'sortBy' => 'Metacritic']);
         }
 
         return $this->render('cheapshark/searchPage.html.twig', [
