@@ -12,7 +12,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CheapsharkController extends AbstractController
 {
-    public function __construct(RequestStack $requestStack, CheapsharkApi $api) {
+    public function __construct(RequestStack $requestStack, CheapsharkApi $api)
+    {
         $session = $requestStack->getSession();
 
         $session->set('stores', array_flip($api->getStoresID()));
@@ -50,9 +51,10 @@ final class CheapsharkController extends AbstractController
     {
         $title = $request->query->get('title');
 
-        if ($title) {
-            $games = $api->getFrom('deals', ['title' => $title, 'storeID' => $api->getStoresID(), 'pageSize' => 20, 'sortBy' => 'Metacritic']);
-        }
+        $stores = $request->query->all('stores');
+
+        $games = $api->getFrom('deals', ['title' => $title, 'storeID' => $api->getStoresID($stores), 'pageSize' => 20, 'sortBy' => 'Metacritic']);
+
 
         return $this->render('cheapshark/searchPage.html.twig', [
             'games' => $games,
