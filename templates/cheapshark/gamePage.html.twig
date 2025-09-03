@@ -19,7 +19,7 @@
     <ul>
         {% for deal in deals %}
         <li>
-            Magasin {{ deal.storeID }} : {{ deal.price }}$ (au lieu de {{ deal.retailPrice }}$)
+            Magasin {{ app.session.get('stores')[deal.storeID] }} : {{ deal.price }}$ (au lieu de {{ deal.retailPrice }}$)
         </li>
         {% endfor %}
 

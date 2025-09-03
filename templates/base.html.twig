@@ -18,6 +18,12 @@
     <header>
         <form action="{{ path('app_cheapshark_search') }}" method="get">
             <input type="text" name="title">
+            {% for store in app.session.get('stores') %}
+
+            <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
+            <label for="{{ store }}">{{ store }}</label>
+
+            {% endfor %}
             <input type="submit">
         </form>
     </header>

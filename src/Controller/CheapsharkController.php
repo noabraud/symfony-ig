@@ -3,18 +3,25 @@
 namespace App\Controller;
 
 use App\Service\CheapsharkApi;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
 final class CheapsharkController extends AbstractController
 {
+    public function __construct(RequestStack $requestStack, CheapsharkApi $api) {
+        $session = $requestStack->getSession();
+
+        $session->set('stores', array_flip($api->getStoresID()));
+    }
+
     #[Route('/', name: 'app_cheapshark_index')]
     public function index(CheapsharkApi $api): Response
     {
-        $games = $api->getFrom('deals', ['storeID' => $api->getStoresID(['Steam']), 'pageSize' => 20, 'sortBy' => 'Savings']);
+        $games = $api->getFrom('deals', ['storeID' => $api->getStoresID(), 'pageSize' => 20, 'sortBy' => 'Savings']);
 
         return $this->render('cheapshark/index.html.twig', [
             'games' => $games,
