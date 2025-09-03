@@ -28,7 +28,7 @@ final class CartController extends AbstractController
         
     }
 
-    #[Route('/cart/add/{id}', name: 'app_cart_add', methods: ['POST'])]
+    #[Route('/cart/add/{id}', name: 'app_cart_add', methods: ['GET'])]
     public function addToCart(Game $game, CartManager $cartManager): Response
     {
         $user = $this->getUser();
@@ -41,7 +41,7 @@ final class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    #[Route('/cart/remove/{id}', name: 'app_cart_remove', methods: ['POST'])]
+    #[Route('/cart/remove/{id}', name: 'app_cart_remove', methods: ['GET'])]
     public function removeFromCart(Game $game, CartManager $cartManager): Response
     {
         $user = $this->getUser();

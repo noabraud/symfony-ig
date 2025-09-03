@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Jeux{% endblock %}
+
+{% block body %}
+    <h1>Liste des Jeux</h1>
+
+    <div class="row">
+        {% for game in games %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.title }}</h5>
+                        <p class="card-text">{{ game.price  }} €</p>
+                        <a href="{{ path('app_cart_add', {'id': game.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

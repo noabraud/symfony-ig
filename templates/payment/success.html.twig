@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement réussi{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="alert alert-success">
+            {{ app.flashes('success2')[0] }}
+        </div>
+        <p>Merci pour votre achat !</p>
+        <a href="{{ path('app_cart') }}" class="btn btn-primary">Retour au panier</a>
+        <a href="{{ path('app_main') }}" class="btn btn-primary">Retour à l'accueil</a>
+    </div>
+{% endblock %}

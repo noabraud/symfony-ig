@@ -22,9 +22,9 @@ class Game
     private ?float $price = null;
 
     /**
-     * @var Collection<int, cart>
+     * @var Collection<int, Cart>
      */
-    #[ORM\OneToMany(targetEntity: cart::class, mappedBy: 'game')]
+    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'game')]
     private Collection $cart;
 
     public function __construct()

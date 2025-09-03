@@ -36,8 +36,8 @@ final class PaymentController extends AbstractController
         }
 
         $cartManager->clearCart($user);
-        $this->addFlash('success', 'Paiement réussi ! Votre panier a été vidé.');
+        $this->addFlash('success2', 'Paiement réussi ! Votre panier a été vidé.');
 
-        return $this->redirectToRoute('app_cart');
+        return $this->render('payment/success.html.twig');
     }
 }
