@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
+use App\Entity\OrderItem;
 use App\Service\StripeManager;
 use App\Service\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class PaymentController extends AbstractController
 {
@@ -28,12 +31,33 @@ final class PaymentController extends AbstractController
     }
 
     #[Route('/payment/success', name: 'app_payment_success')]
-    public function paymentSuccess(CartManager $cartManager): Response
+    public function paymentSuccess(CartManager $cartManager, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+        $cartItems = $cartManager->getCartItems($user);
+        $total = $cartManager->getCartTotal($user);
+
+        $order = new Order();
+        $order->setUser($user);
+        $order->setTotal($total);
+        $order->setOrderNumber('CMD-' . strtoupper(substr(md5(uniqid()), 0, 8)));
+
+        foreach ($cartItems as $cartItem) {
+            $orderItem = new OrderItem();
+            $orderItem->setOrderItem($order);
+            $orderItem->setGameId($cartItem->getGame()->getId());
+            $orderItem->setGameTitle($cartItem->getGame()->getTitle());
+            $orderItem->setPrice($cartItem->getGame()->getPrice());
+            $orderItem->setQuantity($cartItem->getQuantity());
+
+            $em->persist($orderItem);
+        }
+
+        $em->persist($order);
+        $em->flush();
 
         $cartManager->clearCart($user);
         $this->addFlash('success2', 'Paiement réussi ! Votre panier a été vidé.');
