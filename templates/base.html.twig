@@ -16,18 +16,36 @@
 
 <body>
     <header>
-        <form action="{{ path('app_cheapshark_search') }}" method="get">
-            <input type="text" name="title">
+        <form id="searchForm" action="{{ path('app_cheapshark_search') }}" method="get">
+            <input type="text" name="title" placeholder="Rechercher un jeu...">
             {% for store in app.session.get('stores') %}
 
             <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
             <label for="{{ store }}">{{ store }}</label>
 
             {% endfor %}
-            <input type="submit">
+            <input type="submit" value="Rechercher">
         </form>
     </header>
-    {% block body %}{% endblock %}
+    <main id="results">
+        {% block body %}{% endblock %}
+    </main>
 </body>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const params = new URLSearchParams(new FormData(form));
+        const response = await fetch('/search?' + params.toString());
+        const html = await response.text();
+
+        // Récupérer uniquement le fragment du body
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        document.getElementById('results').innerHTML = doc.getElementById('results').innerHTML;
+    });
+</script>
 
 </html>
