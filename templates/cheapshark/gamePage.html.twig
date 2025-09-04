@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }} - Deals{% endblock %}
+
+{% block body %}
+
+<div>
+
+</div>
+
+<div>
+    <h1>{{ title }}</h1>
+
+    <img src="{{ image }}" alt="{{ title }}">
+
+    <p>Prix le plus bas : {{ cheapest }}$</p>
+
+    <h2>Deals disponibles :</h2>
+    <ul>
+        {% for deal in deals %}
+        <li>
+            Magasin {{ app.session.get('stores')[deal.storeID] }} : {{ deal.price }}$ (au lieu de {{ deal.retailPrice }}$)
+        </li>
+        {% endfor %}
+
+    </ul>
+
+</div>
+{% endblock %}
