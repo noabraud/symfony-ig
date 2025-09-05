@@ -3,42 +3,88 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {#
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     {% block stylesheets %}
     {% endblock %}
 
     {% block javascripts %}
     {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <header class="bg-light border-bottom py-3 mb-4">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h4 m-0">JeuxPasChers</h1>
-            <form id="searchForm" action="{{ path('app_cheapshark_search') }}" method="get">
-                <input type="text" name="title" placeholder="Rechercher un jeu...">
-                {% for store in app.session.get('stores') %}
+<body class="min-h-screen text-gray-700">
 
-                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
-                <label for="{{ store }}">{{ store }}</label>
+    {#----- HEADER -----#}
+    <header class="sticky top-0 left-0 w-full bg-white shadow-sm border-b">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                {# LOGO #}
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-blue-600 hover:text-blue-700">
+                        <a href="{{ path('app_cheapshark_index') }}">
+                            JeuxPasChers
+                        </a>
+                    </h1>
+                    <span>
 
-                {% endfor %}
-                <input type="submit" value="Rechercher">
-            </form>
-            <div>
-                {% if app.user %}
-                <span class="me-3">Bienvenue, {{ app.user.email }}</span>
-                <a href="{{ path('app_logout') }}" class="btn btn-outline-danger">Déconnexion</a>
-                {% else %}
-                <a href="{{ path('app_login') }}" class="btn btn-primary me-2">Connexion</a>
-                <a href="{{ path('app_register') }}" class="btn btn-outline-primary">Inscription</a>
-                {% endif %}
+                    </span>
+                </div>
+                {# NAVIGATION #}
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="" class="hover:text-blue-600 transition-colors">
+                        Nouveautés
+                    </a>
+                    <a href="" class="hover:text-blue-600 transition-colors">
+                        Promotions
+                    </a>
+                    <a href="" class="hover:text-blue-600 transition-colors">
+                        Top ventes
+                    </a>
+                    <a href="" class="hover:text-blue-600 transition-colors">
+                        Éditeurs
+                    </a>
+                </nav>
+                {# SEARCH FORM #}
+                <form id="searchForm" action="{{ path('app_cheapshark_search') }}" method="get"
+                    class="hidden md:flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" name="title" placeholder="Rechercher un jeu..."
+                            class="pl-4 pr-12 py-2 w-80 bg-gray-100 rounded-md focus:outline-blue-600">
+                        {# {% for store in app.session.get('stores') %}
+
+                        <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
+                        <label for="{{ store }}">{{ store }}</label>
+
+                        {% endfor %} #}
+                        <button type="submit"
+                            class="bg-blue-600 rounded-md px-2 py-1 absolute right-1 top-1/2 -translate-y-1/2 hover:bg-blue-700 transition-colors"><i
+                                class="text-white fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </form>
+                {# USER #}
+                <div class="flex items-center space-x-3">
+                    {% if app.user %}
+                    <span class="">Bienvenue, {{ app.user.email }}</span>
+                    <a href="{{ path('app_logout') }}" class="rounded-md py-1 px-3 border border-red-600 hover:bg-gray-100 transition-colors">Déconnexion</a>
+                    {% else %}
+                    <a href="{{ path('app_login') }}"
+                        class="rounded-md py-1 px-3 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 transition-colors">Connexion</a>
+                    <a href="{{ path('app_register') }}"
+                        class="rounded-md py-1 px-3 border border-blue-600 hover:bg-gray-100 transition-colors">Inscription</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </header>
-    <main id="results" class="container">
+
+    {#----- MAIN -----#}
+    <main id="results" class="container mx-auto pt-8">
 
         {% block body %}{% endblock %}
 
