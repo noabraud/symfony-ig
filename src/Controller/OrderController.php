@@ -18,7 +18,8 @@ final class OrderController extends AbstractController
     public function index(OrderRepository $orderRepository): Response
     {
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepository->findAll(),
+            $user = $this->getUser(),
+            'orders' => $orderRepository->findAllByUserID($user),
         ]);
     }
 

@@ -8,23 +8,23 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Total</th>
-                <th>CreatedAt</th>
                 <th>OrderNumber</th>
+                <th>CreatedAt</th>
+                <th>Total</th>           
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for order in orders %}
             <tr>
-                <td>{{ order.id }}</td>
-                <td>{{ order.total }}</td>
-                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ order.orderNumber }}</td>
+                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ order.total }} €</td> 
                 <td>
                     <a href="{{ path('app_order_show', {'id': order.id}) }}">show</a>
-                    <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
