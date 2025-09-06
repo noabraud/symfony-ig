@@ -2,19 +2,26 @@
 
 {% block title %}Promotions{% endblock %}
 
+{#--- HERO ---#}
+{% block hero %}
+{% include 'cheapshark/hero.html.twig' %}
+{% endblock %}
+
+
 {% block body %}
-<div>
-
-</div>
-
 <div>
     <h1>Promotions</h1>
 
     {% for game in games %}
     <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
-    <img src="{{ game.thumb }}" alt="{{ game.title }}">
+    <img src="{{ game.thumb }}" alt="{{ game.title }}" width="100">
     <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] ?? 'Store inconnu' }}) -{{ game.savings }}%</p>
     {% endfor %}
 
 </div>
+
+
+{% include 'cheapshark/plateforms.html.twig' %}
+
+
 {% endblock %}
