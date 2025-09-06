@@ -15,9 +15,9 @@ class CheapsharkApi
         'Steam' => 1,
         'GOG' => 7,
         'Origin' => 8,
-        'Uplay' => 13,
+        'Ubisoft Connect' => 13,
         'Epic Games' => 25,
-        'Blizzard Shop' => 31
+        'Battle.net' => 31
     ];
 
     //-- Methods --\\
