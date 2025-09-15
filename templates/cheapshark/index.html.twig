@@ -4,22 +4,56 @@
 
 {#--- HERO ---#}
 {% block hero %}
-{% include 'cheapshark/hero.html.twig' %}
+{% include 'cheapshark/_hero.html.twig' %}
 {% endblock %}
 
 {% block body %}
-<div>
-    <h1>Promotions</h1>
 
-    {% for game in games %}
-    <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
-    <img src="{{ game.thumb }}" alt="{{ game.title }}" width="100">
-    <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] ?? 'Store inconnu' }}) -{{ game.savings }}%</p>
-    {% endfor %}
+{# RECENT RELEASES #}
+<section class="container mx-auto px-4 py-12">
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Nouveautés PC</h1>
+            <p class="text-gray-600">Les dernières sorties sur les plateformes</p>
+    </div>
 
-</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for game in new %}
+        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+        {% endfor %}
+    </div>
+</section>
+
+{# BEST SAVINGS #}
+<section class="container mx-auto px-4 py-12">
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Meilleures promotions</h1>
+            <p class="text-gray-600">Ne ratez pas ces offres exceptionnelles sur PC</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for game in savings %}
+        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+        {% endfor %}
+    </div>
+</section>
+
+{# BEST SELLS #}
+<section class="container mx-auto px-4 py-12">
+    <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Jeux populaires</h1>
+            <p class="text-gray-600">Les jeux PC les plus vendus</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for game in best %}
+        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+        {% endfor %}
+    </div>
+</section>
+
+
 {% endblock %}
 
 {% block stats %}
-{% include 'cheapshark/globalStats.html.twig' %}
+{% include 'cheapshark/_globalStats.html.twig' %}
 {% endblock %}
