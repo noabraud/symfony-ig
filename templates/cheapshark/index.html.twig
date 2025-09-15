@@ -7,7 +7,6 @@
 {% include 'cheapshark/hero.html.twig' %}
 {% endblock %}
 
-
 {% block body %}
 <div>
     <h1>Promotions</h1>
@@ -19,9 +18,8 @@
     {% endfor %}
 
 </div>
+{% endblock %}
 
-
-{% include 'cheapshark/plateforms.html.twig' %}
-
-
+{% block stats %}
+{% include 'cheapshark/globalStats.html.twig' %}
 {% endblock %}

@@ -71,7 +71,8 @@
                 <div class="flex items-center space-x-3">
                     {% if app.user %}
                     <span class="">Bienvenue, {{ app.user.email }}</span>
-                    <a href="{{ path('app_logout') }}" class="rounded-md py-1 px-3 border border-red-600 hover:bg-gray-100 transition-colors">Déconnexion</a>
+                    <a href="{{ path('app_logout') }}"
+                        class="rounded-md py-1 px-3 border border-red-600 hover:bg-gray-100 transition-colors">Déconnexion</a>
                     {% else %}
                     <a href="{{ path('app_login') }}"
                         class="rounded-md py-1 px-3 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 transition-colors">Connexion</a>
@@ -93,6 +94,15 @@
         {% block body %}{% endblock %}
 
     </main>
+
+    {#----- STATS -----#}
+    {% block stats %}
+    {% endblock %}
+
+    <footer class="bg-gray-900 text-white">
+        {% include 'cheapshark/footer.html.twig' %}
+    </footer>
+
 </body>
 <script>
     //     document.getElementById('searchForm').addEventListener('submit', async (e) => {

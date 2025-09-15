@@ -22,7 +22,7 @@ final class CheapsharkController extends AbstractController
     #[Route('/', name: 'app_cheapshark_index')]
     public function index(CheapsharkApi $api): Response
     {
-        $games = $api->getFrom('deals', ['storeID' => $api->getStoresID(), 'pageSize' => 20, 'sortBy' => 'Savings']);
+        $games = $api->getFrom('deals', ['storeID' => $api->getStoresID(), 'pageSize' => 5, 'sortBy' => 'Savings']);
 
         return $this->render('cheapshark/index.html.twig', [
             'games' => $games,
