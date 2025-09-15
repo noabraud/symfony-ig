@@ -1,0 +1,13 @@
+welcome:
+  title: "Welcome to my website"
+  message: 'Welcome'
+menu:
+  home: "Home"
+  games: "Games"
+  cart: "Cart"
+  orders : "Orders"
+  logout: "Logout"
+  login: "Login"
+  register: "Register"
+head:
+  title: "My Game Store"

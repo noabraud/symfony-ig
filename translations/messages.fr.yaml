@@ -1,0 +1,13 @@
+welcome:
+  title: "Bienvenue sur mon site"
+  message: 'bienvenue'
+menu:
+  home: "Accueil"
+  games: "Jeux"
+  cart: "Panier"
+  orders: "Commandes"
+  logout: "Déconnexion"
+  login: "Connexion"
+  register: "Inscription"
+head:
+  title: "Ma boutique de jeux"

@@ -2,25 +2,32 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Mon Site{% endblock %}</title>
+    <title>{% block title %}{{'head.title'|trans}}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="bg-light border-bottom py-3 mb-4">
         <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="h4 m-0">JeuxPasChers</h1>
+            <h1 class="h4 m-0">{{ 'welcome.title'|trans }}</h1>
             <div>
+            <p>Locale actuelle : {{ app.request.locale }}</p>
                 {% if app.user %}
-                    <span class="me-3">Bienvenue, {{ app.user.email }}</span>
-                    <a href="{{ path('app_main') }}" class="btn btn-primary me-2">Accueil</a>
-                    <a href="{{ path('app_game_list') }}" class="btn btn-primary me-2">Jeux</a>
-                    <a href="{{ path('app_cart') }}" class="btn btn-primary me-2">Panier</a>
-                    <a href="{{ path('app_order_index') }}"class="btn btn-primary me-2">Mes commandes</a>
-                    <a href="{{ path('app_logout') }}" class="btn btn-outline-danger">Déconnexion</a>
+                    <span class="me-3">{{ 'welcome.message'|trans }}, {{ app.user.email }}</span>
+                    <a href="{{ path('app_main') }}" class="btn btn-primary me-2">{{'menu.home'|trans}}</a>
+                    <a href="{{ path('app_game_list') }}" class="btn btn-primary me-2">{{'menu.games'|trans}}</a>
+                    <a href="{{ path('app_cart') }}" class="btn btn-primary me-2">{{'menu.cart'|trans}}</a>
+                    <a href="{{ path('app_order_index') }}"class="btn btn-primary me-2">{{'menu.orders'|trans}}</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline-danger">{{'menu.logout'|trans}}</a>
                 {% else %}
-                    <a href="{{ path('app_login') }}" class="btn btn-primary me-2">Connexion</a>
-                    <a href="{{ path('app_register') }}" class="btn btn-outline-primary">Inscription</a>
+                    <a href="{{ path('app_login') }}" class="btn btn-primary me-2">{{'menu.login'|trans}}</a>
+                    <a href="{{ path('app_register') }}" class="btn btn-outline-primary">{{'menu.register'|trans}}</a>
                 {% endif %}
+                <form action="{{ path('set_locale') }}" method="POST" style="display:inline;">
+                    <select name="language" onchange="this.form.submit()">
+                        <option value="fr" {{ app.request.getLocale() == 'fr' ? 'selected' }}>Français</option>
+                        <option value="en" {{ app.request.getLocale() == 'en' ? 'selected' }}>English</option>
+                    </select>
+                </form>
             </div>
         </div>
     </header>
