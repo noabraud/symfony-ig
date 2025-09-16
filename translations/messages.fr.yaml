@@ -34,6 +34,9 @@ validation_mail:
   confirm: "Confirmer mon e-mail"
   warning: "Ce lien expirera dans"
   cheers: "Cordialement, l'équipe My Game Store"
+email_verification:
+  success: "Votre adresse email a été vérifiée."
+
 
 reset_password:
   title: "Réinitialiser le mot de passe"
@@ -55,3 +58,33 @@ email_reset:
   message: "pour réinitialiser votre mot de passe, veuillez cliquer sur le lien ci-dessous :"
   warning: "Ce lien expirera dans"
   cheers: "Cordialement, l'équipe My Game Store"
+
+cart:
+  title: "Mon Panier"
+  game: "Jeu"
+  price: "Prix"
+  quantity: "Quantité"
+  total: "Total"
+  actions: "Actions"
+  remove: "Retirer"
+  checkout: "Payer"
+  empty: "Votre panier est vide."
+
+order:
+  title: "Commandes"
+  order_number: "Numéro de commande"
+  created_at: "Créé le"
+  total: "Total"
+  actions: "Actions"
+  show: "Voir"
+  edit: "Modifier"
+  no_records: "Aucun enregistrement trouvé"
+  create_new: "Créer une nouvelle commande"
+
+payment_success:
+  title: "Paiement réussi"
+  message: "Merci pour votre achat !"
+  back_to_cart: "Retour au panier"
+  back_to_home: "Retour à l'accueil"
+  flash: "Paiement réussi ! Votre panier a été vidé."
+  

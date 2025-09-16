@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class PaymentController extends AbstractController
 {
@@ -31,7 +32,7 @@ final class PaymentController extends AbstractController
     }
 
     #[Route('/payment/success', name: 'app_payment_success')]
-    public function paymentSuccess(CartManager $cartManager, EntityManagerInterface $em): Response
+    public function paymentSuccess(CartManager $cartManager, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -60,7 +61,8 @@ final class PaymentController extends AbstractController
         $em->flush();
 
         $cartManager->clearCart($user);
-        $this->addFlash('success2', 'Paiement réussi ! Votre panier a été vidé.');
+        $message = $translator->trans('payment_success.flash', [], 'messages');
+        $this->addFlash('success2', $message);
 
         return $this->render('payment/success.html.twig');
     }

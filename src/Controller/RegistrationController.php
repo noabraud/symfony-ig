@@ -91,7 +91,8 @@ class RegistrationController extends AbstractController
         }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('success', 'Your email address has been verified.');
+        $message = $translator->trans('email_verification.success', [], 'messages');
+        $this->addFlash('success', $message);
 
         return $this->redirectToRoute('app_login');
     }

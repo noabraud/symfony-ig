@@ -34,6 +34,8 @@ validation_mail:
   confirm: "Confirm my Email"
   warning: "This link will expire in"
   cheers: "Best regards, The My Game Store Team"
+email_verification:
+  success: "Your email address has been verified."
 
 reset_password:
   title: "Reset Password"
@@ -55,3 +57,32 @@ email_reset:
   message: "to reset your password, please click on the link below:"
   warning: "This link will expire in"
   cheers: "Best regards, The My Game Store Team"
+
+cart:
+  title: "My Cart"
+  game: "Game"
+  price: "Price"
+  quantity: "Quantity"
+  total: "Total"
+  actions: "Actions"
+  remove: "Remove"
+  checkout: "Checkout"
+  empty: "Your cart is empty."
+
+order:
+  title: "Orders"
+  order_number: "Order Number"
+  created_at: "Created At"
+  total: "Total"
+  actions: "Actions"
+  show: "Show"
+  edit: "Edit"
+  no_records: "No records found"
+  create_new: "Create new order"
+
+payment_success:
+  title: "Payment Successful"
+  message: "Thank you for your purchase!"
+  back_to_cart: "Back to cart"
+  back_to_home: "Back to home"
+  flash: "Payment successful! Your cart has been cleared."
