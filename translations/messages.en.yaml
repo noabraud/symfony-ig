@@ -11,3 +11,33 @@ menu:
   register: "Register"
 head:
   title: "My Game Store"
+login:
+  title: "Login"
+  email: "Email Address"
+  password: "Password"
+  forgot_password: "Forgot Password?"
+register:
+  title: "Register"
+  email: "Email Address"
+  password: "Password"
+  agree_terms: "I agree to the terms and conditions"
+reset_password:
+  title: "Reset Password"
+  email: "Email Address"
+  message: "Please enter your email address. You will receive a link to create a new password via email."
+  send_email: "Send Reset Link"
+  new__password: "New Password"
+  password_confirmation: "Confirm Password"
+email_sent:
+  title: "Email Sent"
+  message: "An email has been sent to your email address. Please check your inbox to reset your password."
+  warning: "This link will expire in"
+  error: 'if you did not receive an email, please check your spam folder or'
+  resend: "click here to resend"
+email_reset:
+  subject: "Your password reset request"
+  bot: "reset password Bot"
+  hello: "Hello!"
+  message: "to reset your password, please click on the link below:"
+  warning: "This link will expire in"
+  cheers: "Best regards, The My Game Store Team"

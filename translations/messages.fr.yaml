@@ -11,3 +11,33 @@ menu:
   register: "Inscription"
 head:
   title: "Ma boutique de jeux"
+login:
+  title: "Connexion"
+  email: "Adresse e-mail"
+  password: "Mot de passe"
+  forgot_password: "Mot de passe oublié ?"
+register:
+  title: "Inscription"
+  email: "Adresse e-mail"
+  password: "Mot de passe"
+  agree_terms: "J'accepte les termes et conditions"
+reset_password:
+  title: "Réinitialiser le mot de passe"
+  email: "Adresse e-mail"
+  message: "Veuillez entrer votre adresse e-mail. Vous recevrez un lien pour créer un nouveau mot de passe par e-mail."
+  send_email: "Envoyer le lien de réinitialisation"
+  new_password: "Nouveau mot de passe"
+  password_confirmation: "Confirmer le mot de passe"
+email_sent:
+  title: "E-mail envoyé"
+  message: "Un e-mail a été envoyé à votre adresse e-mail. Veuillez vérifier votre boîte de réception pour réinitialiser votre mot de passe."
+  warning: "Ce lien expirera dans"
+  error: "si vous n'avez pas reçu d'e-mail, veuillez vérifier votre dossier spam ou"
+  resend: "cliquez ici pour renvoyer"
+email_reset:
+  subject: "Votre demande de réinitialisation de mot de passe"
+  bot: "Bot de réinitialisation de mot de passe"
+  hello: "Bonjour !"
+  message: "pour réinitialiser votre mot de passe, veuillez cliquer sur le lien ci-dessous :"
+  warning: "Ce lien expirera dans"
+  cheers: "Cordialement, l'équipe My Game Store"
