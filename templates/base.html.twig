@@ -37,16 +37,16 @@
                 </div>
                 {# NAVIGATION #}
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="" class="hover:text-blue-600 transition-colors">
+                    <a href="#recentReleases" class="hover:text-blue-600 transition-colors">
                         Nouveautés
                     </a>
-                    <a href="" class="hover:text-blue-600 transition-colors">
+                    <a href="#bestSavings" class="hover:text-blue-600 transition-colors">
                         Promotions
                     </a>
-                    <a href="" class="hover:text-blue-600 transition-colors">
+                    <a href="#bestSellers" class="hover:text-blue-600 transition-colors">
                         Top ventes
                     </a>
-                    <a href="" class="hover:text-blue-600 transition-colors">
+                    <a href="#platforms" class="hover:text-blue-600 transition-colors">
                         Plateformes
                     </a>
                 </nav>
@@ -89,11 +89,9 @@
     {% endblock %}
 
     {#----- MAIN -----#}
-    <main id="results" class="container mx-auto pt-8">
+    {% block body %}
+    {% endblock %}
 
-        {% block body %}{% endblock %}
-
-    </main>
 
     {#----- STATS -----#}
     {% block stats %}

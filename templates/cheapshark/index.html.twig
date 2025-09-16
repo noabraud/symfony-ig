@@ -10,7 +10,7 @@
 {% block body %}
 
 {# RECENT RELEASES #}
-<section class="container mx-auto px-4 py-12">
+<section id="recentReleases" class="container mx-auto px-4 py-12 scroll-mt-8">
     <div class="mb-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-2">Nouveautés PC</h1>
             <p class="text-gray-600">Les dernières sorties sur les plateformes</p>
@@ -24,21 +24,23 @@
 </section>
 
 {# BEST SAVINGS #}
-<section class="container mx-auto px-4 py-12">
-    <div class="mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Meilleures promotions</h1>
-            <p class="text-gray-600">Ne ratez pas ces offres exceptionnelles sur PC</p>
-    </div>
+<section id="bestSavings" class="scroll-mt-8 bg-gradient-to-r from-blue-600/70 to-purple-900/70">
+    <div class="container mx-auto px-4 py-12 ">
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Meilleures promotions</h1>
+                <p class="text-gray-50">Ne ratez pas ces offres exceptionnelles sur PC</p>
+        </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {% for game in savings %}
-        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
-        {% endfor %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for game in savings %}
+            {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+            {% endfor %}
+        </div>
     </div>
 </section>
 
-{# BEST SELLS #}
-<section class="container mx-auto px-4 py-12">
+{# BEST SELLERS #}
+<section id="bestSellers" class="container mx-auto px-4 py-12 scroll-mt-8">
     <div class="mb-8">
         <h2 class="text-3xl font-bold text-gray-900 mb-2">Jeux populaires</h1>
             <p class="text-gray-600">Les jeux PC les plus vendus</p>
