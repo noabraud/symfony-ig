@@ -21,6 +21,20 @@ register:
   email: "Email Address"
   password: "Password"
   agree_terms: "I agree to the terms and conditions"
+validation_sent:
+  title: "Email Validation"
+  thanks: "Thank you for registering!"
+  message: "A validation email has been sent to your email address. Please check your inbox to validate your account."
+  redirection: "Go to the login page"
+validation_mail:
+  subject: "Your account validation"
+  bot: "Account Validation Bot"
+  hello: "Hello!"
+  message: "to validate your account, please click on the link below:"
+  confirm: "Confirm my Email"
+  warning: "This link will expire in"
+  cheers: "Best regards, The My Game Store Team"
+
 reset_password:
   title: "Reset Password"
   email: "Email Address"
