@@ -1,32 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Order{% endblock %}
+{% block title %}{{ 'order.show.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Order</h1>
+    <h1>{{ 'order.show.title'|trans }}</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>OrderNumber</th>
+                <th>{{ 'order.order_number'|trans }}</th>
                 <td>{{ order.orderNumber }}</td>
             </tr>
             <tr>
-                <th>CreatedAt</th>
+                <th>{{ 'order.created_at'|trans }}</th>
                 <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Total</th>
+                <th>{{ 'order.total'|trans }}</th>
                 <td>{{ order.total }} €</td>
             </tr>
-            
-            
         </tbody>
     </table>
 
-    <a href="{{ path('app_order_index') }}">back to list</a>
+    <a href="{{ path('app_order_index') }}">{{ 'order.show.back_to_list'|trans }}</a>
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
+        <a href="{{ path('app_order_edit', {'id': order.id}) }}">{{ 'order.edit'|trans }}</a>
     {% endif %}
 
     {{ include('order/_delete_form.html.twig') }}

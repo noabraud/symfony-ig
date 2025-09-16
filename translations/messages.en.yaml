@@ -69,17 +69,24 @@ cart:
   checkout: "Checkout"
   empty: "Your cart is empty."
 
-order:
+order: 
   title: "Orders"
   order_number: "Order Number"
   created_at: "Created At"
   total: "Total"
   actions: "Actions"
-  show: "Show"
+  show: 
+    title: "Order"
+    action: 'Show'
+    back_to_list: "Back to list"
+    delete: "Delete"
   edit: "Edit"
   no_records: "No records found"
   create_new: "Create new order"
-
+  delete: 
+    label: "Delete"
+    confirm: "Are you sure you want to delete this order?"
+    
 payment_success:
   title: "Payment Successful"
   message: "Thank you for your purchase!"

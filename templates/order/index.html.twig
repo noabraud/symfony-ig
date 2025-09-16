@@ -21,7 +21,7 @@
                 <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ order.total }} €</td> 
                 <td>
-                    <a href="{{ path('app_order_show', {'id': order.id}) }}">{{ 'order.show'|trans }}</a>
+                    <a href="{{ path('app_order_show', {'id': order.id}) }}">{{ 'order.show.action'|trans }}</a>
                     {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('app_order_edit', {'id': order.id}) }}">{{ 'order.edit'|trans }}</a>
                     {% endif %}

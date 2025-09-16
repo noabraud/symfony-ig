@@ -71,15 +71,22 @@ cart:
   empty: "Votre panier est vide."
 
 order:
+  show:
+    action: 'Voir'
+    title: "Commande"
+    back_to_list: "Retour à la liste"
+    delete: "Supprimer"
   title: "Commandes"
   order_number: "Numéro de commande"
   created_at: "Créé le"
   total: "Total"
   actions: "Actions"
-  show: "Voir"
   edit: "Modifier"
   no_records: "Aucun enregistrement trouvé"
   create_new: "Créer une nouvelle commande"
+  delete:
+    label: "Supprimer"
+    confirm: "Êtes-vous sûr de vouloir supprimer cette commande ?"
 
 payment_success:
   title: "Paiement réussi"
