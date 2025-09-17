@@ -4,16 +4,70 @@
 
 {% block body %}
 
-<div>
+<div class="min-h-screen bg-gradient-to-r from-blue-600/70 to-purple-900/70">
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">
+                Rechercher des jeux PC
+            </h1>
+        </div>
+
+        <div class="flex gap-8">
+            {# FILTERS DESKTOP #}
+            <div class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="font-semibold text-gray-900">Filtres</h2>
+                    <i class="fa-solid fa-filter w-5 h-5 text-gray-500"></i>
+                </div>
+                {# filtres content #}
+                {# filtres content #}
+                {# filtres content #}
+            </div>
+
+            {# MAIN CONTENT #}
+            <div class="flex-1">
+                {# TOOL BAR #}
+                <div class="bg-white rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        {# MOBILE FILTERS #}
+
+                        <div class="text-sm text-gray-600">
+                            {{ games|length }} jeu(x) trouvé(s)
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 w-full sm:w-auto">
+                        {# SORT #}
+                        <div class="flex border rounded-md">
+
+                        </div>
+                    </div>
+                </div>
+
+                {# ACTIVE FILTERS #}
+
+                {# RESULTS #}
+                <div class="bg-gray-50 rounded-lg p-6">
+                    {% if games is empty %}
+                        <div class="text-center py-12">
+                            <i class="fa-solid fa-magnifying-glass text-6xl text-gray-300 mx-auto mb-4"></i>
+                            <h3 class="text-xl font-medium text-gray-900 mb-2">Aucun jeu trouvé</h3>
+                            <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
+                            <button class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">Effacer tous les filtres</button>
+                        </div>
+                    {% else %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {% for game in games %}
+                        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
-<div>
-    <h1>Promotions</h1>
-    {% for game in games %}
-    <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
-    <img src="{{ game.thumb }}" alt="{{ game.title }}">
-    <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] }}) -{{ game.savings }}%</p>
-    {% endfor %}
-</div>
 {% endblock %}
