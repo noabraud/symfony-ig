@@ -4,15 +4,16 @@
         <img src="{{ game.thumb }}" alt="{{ game.title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
 
-        {# Discount badge #}
-        <span class="absolute top-2 left-2 bg-red-600 text-white rounded-md px-2 py-1 font-semibold">
+        {% if game.savings <= 0 %} {% set isOnSale=false %} {% else %} {% set isOnSale=true %} {# Discount badge #}
+            <span class="absolute top-2 left-2 bg-red-600 text-white rounded-md px-2 py-1 font-semibold">
             -{{ game.savings|round(0) }}%
-        </span>
+            </span>
+            {% endif %}
 
-        {# Platform badge #}
-        <span class="absolute top-2 right-2 bg-gray-50 rounded-md px-2 py-1 font-semibold">
-            {{ app.session.get('stores')[game.storeID] }}
-        </span>
+            {# Platform badge #}
+            <span class="absolute top-2 right-2 bg-gray-50 rounded-md px-2 py-1 font-semibold">
+                {{ app.session.get('stores')[game.storeID] }}
+            </span>
     </div>
 
     {# Content #}
@@ -53,11 +54,17 @@
         {# Price #}
         <div class="flex items-center justify-between mb-3">
             <div class="flex items-center gap-2">
+                {% if isOnSale %}
                 <span class="text-lg font-bold text-blue-600">
                     {% if game.salePrice <= 0 %} FREE {% else %} {{ game.salePrice }}€ {% endif %} </span>
                         <span class="text-sm text-gray-500 line-through">
                             {{ game.normalPrice }}€
                         </span>
+                        {% else %}
+                        <span class="text-lg font-bold text-gray-900">
+                            {{ game.normalPrice }}€
+                        </span>
+                        {% endif %}
             </div>
         </div>
 
