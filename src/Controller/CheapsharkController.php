@@ -52,12 +52,16 @@ final class CheapsharkController extends AbstractController
         $title = $request->query->get('title');
 
         $stores = $request->query->all('stores');
+        $page = $request->query->getInt('page', 1);
 
-        $games = $api->getFrom('deals', ['title' => $title, 'storeID' => $api->getStoresID($stores), 'pageSize' => 20, 'sortBy' => 'Metacritic']);
+        $games = $api->getFrom('deals', ['title' => $title, 'storeID' => $api->getStoresID($stores),'pageNumber' => $page - 1, 'pageSize' => 20, 'sortBy' => 'Metacritic']);
 
 
         return $this->render('cheapshark/searchPage.html.twig', [
             'games' => $games,
+            'currentPage' => $page,
+            'title' => $title,
+            'stores' => $stores
         ]);
     }
 }

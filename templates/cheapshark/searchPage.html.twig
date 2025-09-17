@@ -3,17 +3,40 @@
 {% block title %}Promotions{% endblock %}
 
 {% block body %}
-
-<div>
-
-</div>
-
 <div>
     <h1>Promotions</h1>
-    {% for game in games %}
-    <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
-    <img src="{{ game.thumb }}" alt="{{ game.title }}">
-    <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] }}) -{{ game.savings }}%</p>
-    {% endfor %}
+
+    {% if games is not empty %}
+        {% for game in games %}
+            <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
+            <img src="{{ game.thumb }}" alt="{{ game.title }}">
+            <p>
+                {{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] }})
+                - {{ game.savings|number_format(0) }}%
+            </p>
+        {% endfor %}
+
+        <div class="pagination" style="margin-top: 20px;">
+            {% if currentPage > 1 %}
+                <a href="{{ path('app_cheapshark_search', {
+                    title: title,
+                    stores: stores,
+                    page: currentPage - 1
+                }) }}">← Page précédente</a>
+            {% endif %}
+
+            <span style="margin: 0 10px;">Page {{ currentPage }}</span>
+
+            {% if games|length == 20 %}
+                <a href="{{ path('app_cheapshark_search', {
+                    title: title,
+                    stores: stores,
+                    page: currentPage + 1
+                }) }}">Page suivante →</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Aucun résultat trouvé.</p>
+    {% endif %}
 </div>
 {% endblock %}
