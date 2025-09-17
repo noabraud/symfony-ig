@@ -1,11 +1,10 @@
-<h1>Hi!</h1>
-
-<p>To reset your password, please visit the following link</p>
-
+<h1>{{ 'email_reset.hello'|trans({}, 'messages', locale) }}</h1>
+<p>{{ 'email_reset.message'|trans({}, 'messages', locale) }}</p>
 <a href="{{ absolute_url(path('app_reset_password', {token: resetToken.token})) }}">
     {{ absolute_url(path('app_reset_password', {token: resetToken.token})) }}
 </a>
-
-<p>This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
-
-<p>Cheers!</p>
+<p>
+    {{ 'email_reset.warning'|trans({}, 'messages', locale) }}
+    {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle', locale) }}.
+</p>
+<p>{{ 'email_reset.cheers'|trans({}, 'messages', locale) }}</p>

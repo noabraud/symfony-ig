@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'order.title'|trans }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'order.title'|trans }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ 'order.order_number'|trans }}</th>
+                <th>{{ 'order.created_at'|trans }}</th>
+                <th>{{ 'order.total'|trans }}</th>           
+                <th>{{ 'order.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.orderNumber }}</td>
+                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ order.total }} €</td> 
+                <td>
+                    <a href="{{ path('app_order_show', {'id': order.id}) }}">{{ 'order.show.action'|trans }}</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_order_edit', {'id': order.id}) }}">{{ 'order.edit'|trans }}</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">{{ 'order.no_records'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cart') }}">{{ 'order.create_new'|trans }}</a>
+{% endblock %}

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Vérification de l'email{% endblock %}
+{% block title %}{{'validation_sent.title'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>Merci pour votre inscription !</h1>
-    <p>Un email de confirmation vous a été envoyé à votre adresse. Veuillez vérifier votre boîte de réception pour confirmer votre email.</p>
-     <a href="{{ path('app_login') }}" class="btn btn-primary mt-3">Aller à la page de connexion</a>
+    <h1>{{'validation_sent.thanks'|trans}}</h1>
+    <p>{{'validation_sent.message'|trans}}</p>
+     <a href="{{ path('app_login') }}" class="btn btn-primary mt-3">{{'validation_sent.redirection'|trans}}</a>
 {% endblock %}

@@ -1,0 +1,97 @@
+welcome:
+  title: "Bienvenue sur mon site"
+  message: 'bienvenue'
+menu:
+  home: "Accueil"
+  games: "Jeux"
+  cart: "Panier"
+  orders: "Commandes"
+  logout: "Déconnexion"
+  login: "Connexion"
+  register: "Inscription"
+head:
+  title: "Ma boutique de jeux"
+login:
+  title: "Connexion"
+  email: "Adresse e-mail"
+  password: "Mot de passe"
+  forgot_password: "Mot de passe oublié ?"
+register:
+  title: "Inscription"
+  email: "Adresse e-mail"
+  password: "Mot de passe"
+  agree_terms: "J'accepte les termes et conditions"
+validation_sent:
+  title: "Validation de l'e-mail"
+  thanks: "Merci pour votre inscription !"
+  message: "Un e-mail de validation a été envoyé à votre adresse e-mail. Veuillez vérifier votre boîte de réception pour valider votre compte."
+  redirection: "Aller à la page de connexion"
+validation_mail:
+  subject: "Validation de votre compte"
+  bot: "Bot de validation de compte"
+  hello: "Bonjour !"
+  message: "pour valider votre compte, veuillez cliquer sur le lien ci-dessous :"
+  confirm: "Confirmer mon e-mail"
+  warning: "Ce lien expirera dans"
+  cheers: "Cordialement, l'équipe My Game Store"
+email_verification:
+  success: "Votre adresse email a été vérifiée."
+
+
+reset_password:
+  title: "Réinitialiser le mot de passe"
+  email: "Adresse e-mail"
+  message: "Veuillez entrer votre adresse e-mail. Vous recevrez un lien pour créer un nouveau mot de passe par e-mail."
+  send_email: "Envoyer le lien de réinitialisation"
+  new_password: "Nouveau mot de passe"
+  password_confirmation: "Confirmer le mot de passe"
+email_sent:
+  title: "E-mail envoyé"
+  message: "Un e-mail a été envoyé à votre adresse e-mail. Veuillez vérifier votre boîte de réception pour réinitialiser votre mot de passe."
+  warning: "Ce lien expirera dans"
+  error: "si vous n'avez pas reçu d'e-mail, veuillez vérifier votre dossier spam ou"
+  resend: "cliquez ici pour renvoyer"
+email_reset:
+  subject: "Votre demande de réinitialisation de mot de passe"
+  bot: "Bot de réinitialisation de mot de passe"
+  hello: "Bonjour !"
+  message: "pour réinitialiser votre mot de passe, veuillez cliquer sur le lien ci-dessous :"
+  warning: "Ce lien expirera dans"
+  cheers: "Cordialement, l'équipe My Game Store"
+
+cart:
+  title: "Mon Panier"
+  game: "Jeu"
+  price: "Prix"
+  quantity: "Quantité"
+  total: "Total"
+  actions: "Actions"
+  remove: "Retirer"
+  checkout: "Payer"
+  empty: "Votre panier est vide."
+
+order:
+  show:
+    action: 'Voir'
+    title: "Commande"
+    back_to_list: "Retour à la liste"
+    delete: "Supprimer"
+  title: "Commandes"
+  order_number: "Numéro de commande"
+  created_at: "Créé le"
+  total: "Total"
+  actions: "Actions"
+  edit: "Modifier"
+  no_records: "Aucun enregistrement trouvé"
+  create_new: "Créer une nouvelle commande"
+  delete:
+    label: "Supprimer"
+    confirm: "Êtes-vous sûr de vouloir supprimer cette commande ?"
+
+payment_success:
+  title: "Paiement réussi"
+  message: "Merci pour votre achat !"
+  back_to_cart: "Retour au panier"
+  back_to_home: "Retour à l'accueil"
+  flash: "Paiement réussi ! Votre panier a été vidé."
+  

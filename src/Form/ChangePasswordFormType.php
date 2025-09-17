@@ -38,10 +38,10 @@ class ChangePasswordFormType extends AbstractType
                         new PasswordStrength(),
                         new NotCompromisedPassword(),
                     ],
-                    'label' => 'New password',
+                    'label' => 'reset_password.new_password',
                 ],
                 'second_options' => [
-                    'label' => 'Repeat Password',
+                    'label' => 'reset_password.password_confirmation',
                 ],
                 'invalid_message' => 'The password fields must match.',
                 // Instead of being set onto the object directly,

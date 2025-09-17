@@ -44,7 +44,7 @@ class ResetPasswordController extends AbstractController
             /** @var string $email */
             $email = $form->get('email')->getData();
 
-            return $this->processSendingPasswordResetEmail($email, $mailer, $translator
+            return $this->processSendingPasswordResetEmail($email, $mailer, $translator, $request
             );
         }
 
@@ -129,7 +129,7 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator): RedirectResponse
+    private function processSendingPasswordResetEmail(string $emailFormData, MailerInterface $mailer, TranslatorInterface $translator, Request $request): RedirectResponse
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
             'email' => $emailFormData,
@@ -156,16 +156,18 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_check_email');
         }
 
+        $locale = $request->getLocale(); // ou $user->getLocale() si tu stockes la langue
+
         $email = (new TemplatedEmail())
-            ->from(new Address('jeuxpascher@resetpassword.com', 'Reset password Bot'))
+            ->from(new Address('jeuxpascher@resetpassword.com', $translator->trans('email_reset.bot', [], 'messages', $locale)))
             ->to((string) $user->getEmail())
-            ->subject('Your password reset request')
+            ->subject($translator->trans('email_reset.subject', [], 'messages')) // traduit le sujet
             ->htmlTemplate('reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
+                'locale' => $locale, // 🔑 ajout
             ])
         ;
-
         $mailer->send($email);
 
         // Store the token object in session for retrieval in check-email route.
