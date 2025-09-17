@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Promotions{% endblock %}
+
+{% block body %}
+
+<div>
+
+</div>
+
+<div>
+    <h1>Promotions</h1>
+    {% for game in games %}
+    <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
+    <img src="{{ game.thumb }}" alt="{{ game.title }}">
+    <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] }}) -{{ game.savings }}%</p>
+    {% endfor %}
+</div>
+{% endblock %}
