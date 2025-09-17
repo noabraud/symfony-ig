@@ -16,25 +16,31 @@
             </p>
         {% endfor %}
 
-        <div class="pagination" style="margin-top: 20px;">
-            {% if currentPage > 1 %}
-                <a href="{{ path('app_cheapshark_search', {
-                    title: title,
-                    stores: stores,
-                    page: currentPage - 1
-                }) }}">← Page précédente</a>
-            {% endif %}
+        <div class="pagination" style="margin-top: 20px; display: flex; gap: 5px; flex-wrap: wrap;">
 
-            <span style="margin: 0 10px;">Page {{ currentPage }}</span>
+        {# Lien vers la première page #}
+        {% if currentPage > 1 %}
+            <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': 1}) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">1</a>
+        {% endif %}
 
-            {% if games|length == 20 %}
-                <a href="{{ path('app_cheapshark_search', {
-                    title: title,
-                    stores: stores,
-                    page: currentPage + 1
-                }) }}">Page suivante →</a>
-            {% endif %}
-        </div>
+        {# Page précédente #}
+        {% if currentPage > 2 %}
+            <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage - 1}) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage - 1 }}</a>
+        {% endif %}
+
+        {# Page courante #}
+        <span style="padding:5px 10px; border:1px solid #000; background-color:#000; color:#fff; font-weight:bold;">{{ currentPage }}</span>
+
+        {# Page suivante #}
+        {% if games|length == 20 %}
+            <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage + 1}) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage + 1 }}</a>
+        {% endif %}
+
+    </div>
+
+
+
+
     {% else %}
         <p>Aucun résultat trouvé.</p>
     {% endif %}
