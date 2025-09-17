@@ -10,8 +10,15 @@
 {# RECENT RELEASES #}
 <section id="recentReleases" class="container mx-auto px-4 py-12 scroll-mt-8">
     <div class="mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Nouveautés PC</h1>
-            <p class="text-gray-600">Les dernières sorties sur les plateformes</p>
+        <a href="{{ path('app_cheapshark_search') }}?sortby=Release">
+            <h2
+                class="inline-block text-3xl font-bold text-gray-700 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
+                Nouveautés PC
+                <i class="fa-solid fa-angles-right transition-colors"></i>
+            </h2>
+        </a>
+
+        <p class="text-gray-600">Les dernières sorties sur les plateformes</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -25,8 +32,14 @@
 <section id="bestSavings" class="scroll-mt-8 bg-gradient-to-r from-blue-600/70 to-purple-900/70">
     <div class="container mx-auto px-4 py-12 ">
         <div class="mb-8">
-            <h2 class="text-3xl font-bold text-gray-900 mb-2">Meilleures promotions</h1>
-                <p class="text-gray-50">Ne ratez pas ces offres exceptionnelles sur PC</p>
+            <a href="{{ path('app_cheapshark_search') }}?sortby=Savings">
+                <h2
+                    class="inline-block text-3xl font-bold text-gray-100 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
+                    Meilleures promotions
+                    <i class="fa-solid fa-angles-right transition-colors"></i>
+                </h2>
+            </a>
+            <p class="text-gray-50">Ne ratez pas ces offres exceptionnelles sur PC</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -40,8 +53,14 @@
 {# BEST SELLERS #}
 <section id="bestSellers" class="container mx-auto px-4 py-12 scroll-mt-8">
     <div class="mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-2">Jeux populaires</h1>
-            <p class="text-gray-600">Les jeux PC les plus vendus</p>
+        <a href="{{ path('app_cheapshark_search') }}?sortby=DealRating">
+            <h2
+                class="inline-block text-3xl font-bold text-gray-700 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
+                Jeux populaires
+                <i class="fa-solid fa-angles-right transition-colors"></i>
+            </h2>
+        </a>
+        <p class="text-gray-600">Les jeux PC les plus vendus</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
