@@ -21,82 +21,13 @@
 <body class="min-h-screen text-gray-700">
 
     {#----- HEADER -----#}
-    <header class="sticky top-0 left-0 w-full bg-white shadow-sm border-b z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                {# LOGO #}
-                <div class="flex items-center space-x-4">
-                    <h1 class="text-2xl font-bold text-blue-600 hover:text-blue-700">
-                        <a href="{{ path('app_cheapshark_index') }}">
-                            JeuxPasChers
-                        </a>
-                    </h1>
-                    <span>
-
-                    </span>
-                </div>
-                {# NAVIGATION #}
-                <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#recentReleases" class="hover:text-blue-600 transition-colors">
-                        Nouveautés
-                    </a>
-                    <a href="#bestSavings" class="hover:text-blue-600 transition-colors">
-                        Promotions
-                    </a>
-                    <a href="#bestSellers" class="hover:text-blue-600 transition-colors">
-                        Top ventes
-                    </a>
-                    <a href="#platforms" class="hover:text-blue-600 transition-colors">
-                        Plateformes
-                    </a>
-                </nav>
-                {# SEARCH FORM #}
-                <form id="searchForm" action="{{ path('app_cheapshark_search') }}" method="get"
-                    class="hidden md:flex items-center space-x-4">
-                    <div class="relative">
-                        <input type="text" name="title" placeholder="Rechercher un jeu..."
-                            class="pl-4 pr-12 py-2 w-80 bg-gray-100 rounded-md focus:outline-blue-600">
-                        {# {% for store in app.session.get('stores') %}
-
-                        <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
-                        <label for="{{ store }}">{{ store }}</label>
-
-                        {% endfor %} #}
-                        <button type="submit"
-                            class="bg-blue-600 rounded-md px-2 py-1 absolute right-1 top-1/2 -translate-y-1/2 hover:bg-blue-700 transition-colors"><i
-                                class="text-white fa-solid fa-magnifying-glass"></i></button>
-                    </div>
-                </form>
-                {# USER #}
-                <div class="flex items-center space-x-3">
-                    {% if app.user %}
-                    <span class="">Bienvenue, {{ app.user.email }}</span>
-                    <a href="{{ path('app_logout') }}"
-                        class="rounded-md py-1 px-3 border border-red-600 hover:bg-gray-100 transition-colors">Déconnexion</a>
-                    {% else %}
-                    <a href="{{ path('app_login') }}"
-                        class="rounded-md py-1 px-3 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 transition-colors">Connexion</a>
-                    <a href="{{ path('app_register') }}"
-                        class="rounded-md py-1 px-3 border border-blue-600 hover:bg-gray-100 transition-colors">Inscription</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </header>
-
-    {#----- HERO -----#}
-    {% block hero %}
-    {% endblock %}
+    {% include 'cheapshark/_header.html.twig' %}
 
     {#----- MAIN -----#}
     {% block body %}
     {% endblock %}
 
-
-    {#----- STATS -----#}
-    {% block stats %}
-    {% endblock %}
-
+    {#----- FOOTER -----#}
     <footer class="bg-gray-900 text-white">
         {% include 'cheapshark/_footer.html.twig' %}
     </footer>

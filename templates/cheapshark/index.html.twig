@@ -2,12 +2,10 @@
 
 {% block title %}Promotions{% endblock %}
 
-{#--- HERO ---#}
-{% block hero %}
-{% include 'cheapshark/_hero.html.twig' %}
-{% endblock %}
-
 {% block body %}
+
+{#--- HERO ---#}
+{% include 'cheapshark/_hero.html.twig' %}
 
 {# RECENT RELEASES #}
 <section id="recentReleases" class="container mx-auto px-4 py-12 scroll-mt-8">
@@ -53,9 +51,6 @@
     </div>
 </section>
 
-
-{% endblock %}
-
-{% block stats %}
+{# STATS & PLATFORMS #}
 {% include 'cheapshark/_globalStats.html.twig' %}
 {% endblock %}
