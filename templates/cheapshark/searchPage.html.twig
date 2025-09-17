@@ -3,17 +3,46 @@
 {% block title %}Promotions{% endblock %}
 
 {% block body %}
-
-<div>
-
-</div>
-
 <div>
     <h1>Promotions</h1>
-    {% for game in games %}
-    <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
-    <img src="{{ game.thumb }}" alt="{{ game.title }}">
-    <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] }}) -{{ game.savings }}%</p>
-    {% endfor %}
+
+    {% if games is not empty %}
+        {% for game in games %}
+            <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
+            <img src="{{ game.thumb }}" alt="{{ game.title }}">
+            <p>
+                {{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] }})
+                - {{ game.savings|number_format(0) }}%
+            </p>
+        {% endfor %}
+
+        <div class="pagination" style="margin-top: 20px; display: flex; gap: 5px; flex-wrap: wrap;">
+
+        {# Lien vers la première page #}
+        {% if currentPage > 1 %}
+            <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': 1}) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">1</a>
+        {% endif %}
+
+        {# Page précédente #}
+        {% if currentPage > 2 %}
+            <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage - 1}) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage - 1 }}</a>
+        {% endif %}
+
+        {# Page courante #}
+        <span style="padding:5px 10px; border:1px solid #000; background-color:#000; color:#fff; font-weight:bold;">{{ currentPage }}</span>
+
+        {# Page suivante #}
+        {% if games|length == 20 %}
+            <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage + 1}) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage + 1 }}</a>
+        {% endif %}
+
+    </div>
+
+
+
+
+    {% else %}
+        <p>Aucun résultat trouvé.</p>
+    {% endif %}
 </div>
 {% endblock %}
