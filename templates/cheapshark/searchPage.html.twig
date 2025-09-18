@@ -8,7 +8,7 @@
 
     <div class="container mx-auto px-4 py-8">
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">
+            <h1 class="text-3xl font-bold text-gray-50 mb-4">
                 Rechercher des jeux PC
             </h1>
         </div>
@@ -20,9 +20,128 @@
                     <h2 class="font-semibold text-gray-900">Filtres</h2>
                     <i class="fa-solid fa-filter w-5 h-5 text-gray-500"></i>
                 </div>
-                {# filtres content #}
-                {# filtres content #}
-                {# filtres content #}
+                <div class="flex flex-col space-y-6">
+
+                    {# Platforms filter #}
+                    <div>
+                        <label class="font-medium mb-2 block">Plateformes</label>
+                        <div class="flex flex-col space-y-2 max-h-48 overflow-y-auto">
+                            {% for store in app.session.get('stores') %}
+                            <div class="flex space-x-2">
+                                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
+                                <label for="{{ store }}">{{ store }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Price filter #}
+                    <div>
+                        <label class="font-medium mb-2 block">Prix :</label>
+                        <!-- Conteneur du slider -->
+                        <div class="w-72 mx-auto relative pt-6">
+                            <!-- Barre de fond -->
+                            <div
+                                class="absolute top-1/2 left-0 right-0 h-2 bg-gray-200 rounded-md transform -translate-y-1/2">
+                            </div>
+
+                            <!-- Barre active -->
+                            <div id="slider-track"
+                                class="absolute top-1/2 h-2 bg-blue-600 rounded-md transform -translate-y-1/2">
+                            </div>
+
+                            <!-- Input min -->
+                            <input id="range-min" type="range" min="0" max="500" value="0" class="absolute w-full top-2 h-2 bg-transparent pointer-events-none appearance-none 
+                                [&::-webkit-slider-thumb]:appearance-none
+                                [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
+                                [&::-webkit-slider-thumb]:bg-blue-600 
+                                [&::-webkit-slider-thumb]:rounded-full
+                                [&::-webkit-slider-thumb]:pointer-events-auto 
+                                [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4
+                                [&::-moz-range-thumb]:bg-blue-600 
+                                [&::-moz-range-thumb]:rounded-full 
+                                [&::-moz-range-thumb]:border-0" />
+
+                            <!-- Input max -->
+                            <input id="range-max" type="range" min="0" max="500" value="500" class="absolute w-full top-2 h-2 bg-transparent pointer-events-none appearance-none 
+                                [&::-webkit-slider-thumb]:appearance-none
+                                [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
+                                [&::-webkit-slider-thumb]:bg-blue-600 
+                                [&::-webkit-slider-thumb]:rounded-full
+                                [&::-webkit-slider-thumb]:pointer-events-auto 
+                                [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4
+                                [&::-moz-range-thumb]:bg-blue-600 
+                                [&::-moz-range-thumb]:rounded-full 
+                                [&::-moz-range-thumb]:border-0" />
+                        </div>
+
+                        <!-- Affichage valeurs -->
+                        <div class="flex justify-between mt-6 text-sm text-gray-700">
+                            <span id="range-min-value">0</span>
+                            <span id="range-max-value">500</span>
+                        </div>
+                    </div>
+
+                    <script>
+                        const rangeMin = document.getElementById("range-min");
+                        const rangeMax = document.getElementById("range-max");
+                        const minValue = document.getElementById("range-min-value");
+                        const maxValue = document.getElementById("range-max-value");
+                        const track = document.getElementById("slider-track");
+
+                        const minGap = 5; // écart minimum entre min et max
+
+                        function updateTrack() {
+                            const percent1 = (rangeMin.value / rangeMin.max) * 100;
+                            const percent2 = (rangeMax.value / rangeMax.max) * 100;
+                            track.style.left = percent1 + "%";
+                            track.style.right = (100 - percent2) + "%";
+                            minValue.textContent = rangeMin.value;
+                            maxValue.textContent = rangeMax.value;
+                        }
+
+                        rangeMin.addEventListener("input", () => {
+                            if (parseInt(rangeMax.value) - parseInt(rangeMin.value) <= minGap) {
+                                rangeMin.value = parseInt(rangeMax.value) - minGap;
+                            }
+                            updateTrack();
+                        });
+
+                        rangeMax.addEventListener("input", () => {
+                            if (parseInt(rangeMax.value) - parseInt(rangeMin.value) <= minGap) {
+                                rangeMax.value = parseInt(rangeMin.value) + minGap;
+                            }
+                            updateTrack();
+                        });
+
+                        updateTrack(); // init
+                    </script>
+
+                    {# Note filter #}
+                    <div>
+                        {# <input type="range" min="0" max="200" id=""> #}
+                    </div>
+
+                    {# Age filter #}
+                    <div>
+
+                    </div>
+
+                    {# On sale filter #}
+                    <div>
+
+                    </div>
+
+                    {# Apply filters button #}
+                    <a href="{{ path('app_cheapshark_search') }}"
+                        class="bg-blue-600 rounded-lg px-4 py-2 hover:bg-blue-700 text-gray-50 w-full text-center">Appliquer
+                        les filtres</a>
+
+                    {# Erase filters button #}
+                    <a href="{{ path('app_cheapshark_search') }}"
+                        class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 w-full text-center">Effacer
+                        les filtres</a>
+                </div>
             </div>
 
             {# MAIN CONTENT #}
@@ -54,8 +173,9 @@
                         <i class="fa-solid fa-magnifying-glass text-6xl text-gray-300 mx-auto mb-4"></i>
                         <h3 class="text-xl font-medium text-gray-900 mb-2">Aucun jeu trouvé</h3>
                         <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
-                        <button class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">Effacer tous les
-                            filtres</button>
+                        <a href="{{ path('app_cheapshark_search') }}"
+                            class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">Effacer tous les
+                            filtres</a>
                     </div>
                     {% else %}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
