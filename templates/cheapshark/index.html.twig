@@ -3,18 +3,73 @@
 {% block title %}Promotions{% endblock %}
 
 {% block body %}
-<div>
 
-</div>
+{#--- HERO ---#}
+{% include 'cheapshark/_hero.html.twig' %}
 
-<div>
-    <h1>Promotions</h1>
+{# RECENT RELEASES #}
+<section id="recentReleases" class="container mx-auto px-4 py-12 scroll-mt-8">
+    <div class="mb-8">
+        <a href="{{ path('app_cheapshark_search') }}?sortby=Release">
+            <h2
+                class="inline-block text-3xl font-bold text-gray-700 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
+                Nouveautés PC
+                <i class="fa-solid fa-angles-right transition-colors"></i>
+            </h2>
+        </a>
 
-    {% for game in games %}
-    <h2><a href="/game?id={{ game.gameID }}">{{ game.title }}</a></h2>
-    <img src="{{ game.thumb }}" alt="{{ game.title }}">
-    <p>{{ game.salePrice }}$ ({{ app.session.get('stores')[game.storeID] ?? 'Store inconnu' }}) -{{ game.savings }}%</p>
-    {% endfor %}
+        <p class="text-gray-600">Les dernières sorties sur les plateformes</p>
+    </div>
 
-</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for game in new %}
+        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+        {% endfor %}
+    </div>
+</section>
+
+{# BEST SAVINGS #}
+<section id="bestSavings" class="scroll-mt-8 bg-gradient-to-r from-blue-600/70 to-purple-900/70">
+    <div class="container mx-auto px-4 py-12 ">
+        <div class="mb-8">
+            <a href="{{ path('app_cheapshark_search') }}?sortby=Savings">
+                <h2
+                    class="inline-block text-3xl font-bold text-gray-100 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
+                    Meilleures promotions
+                    <i class="fa-solid fa-angles-right transition-colors"></i>
+                </h2>
+            </a>
+            <p class="text-gray-50">Ne ratez pas ces offres exceptionnelles sur PC</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for game in savings %}
+            {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# BEST SELLERS #}
+<section id="bestSellers" class="container mx-auto px-4 py-12 scroll-mt-8">
+    <div class="mb-8">
+        <a href="{{ path('app_cheapshark_search') }}?sortby=DealRating">
+            <h2
+                class="inline-block text-3xl font-bold text-gray-700 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
+                Jeux populaires
+                <i class="fa-solid fa-angles-right transition-colors"></i>
+            </h2>
+        </a>
+        <p class="text-gray-600">Les jeux PC les plus vendus</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for game in best %}
+        {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
+        {% endfor %}
+    </div>
+</section>
+
+{# STATS & PLATFORMS #}
+{% include 'cheapshark/_globalStats.html.twig' %}
 {% endblock %}

@@ -1,0 +1,115 @@
+{# PLATFORMS SECTION #}
+<section id="platforms" class="py-16 scroll-mt-8">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Toutes les plateformes PC</h2>
+            <p class="max-w-2xl mx-auto">
+                Nous proposons des jeux de toutes les principales plateformes PC. Activez vos clés instantanément sur
+                votre
+                launcher préféré.
+            </p>
+        </div>
+
+        {# Platforms Grid #}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+            {# STEAM #}
+            <a href="{{ path('app_cheapshark_search') }}?stores%5B%5D=Steam&sortby=DealRating">
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                    <p
+                        class="inline-block mb-4 rounded-lg bg-slate-700 group-hover:bg-slate-800 text-white px-4 py-2 text-sm font-medium">
+                        Steam
+                    </p>
+                    <p class="text-2xl font-bold text-gray-900 mb-1">8500+</p>
+                    <p class="text-sm">jeux disponibles</p>
+                </div>
+            </a>
+
+            {# GOG #}
+            <a href="{{ path('app_cheapshark_search') }}?stores%5B%5D=GOG&sortby=DealRating">
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                    <p
+                        class="inline-block mb-4 rounded-lg bg-purple-600 group-hover:bg-purple-700 text-white px-4 py-2 text-sm font-medium">
+                        GOG
+                    </p>
+                    <p class="text-2xl font-bold text-gray-900 mb-1">950+</p>
+                    <p class="text-sm">jeux disponibles</p>
+                </div>
+            </a>
+
+            {# UBISOFT CONNECT #}
+            <a href="{{ path('app_cheapshark_search') }}?stores%5B%5D=Ubisoft+Connect&sortby=DealRating">
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                    <p
+                        class="inline-block mb-4 rounded-lg bg-blue-600 group-hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium">
+                        Ubisoft Connect
+                    </p>
+                    <p class="text-2xl font-bold text-gray-900 mb-1">450+</p>
+                    <p class="text-sm">jeux disponibles</p>
+                </div>
+            </a>
+
+            {# EPIC GAMES #}
+            <a href="{{ path('app_cheapshark_search') }}?stores%5B%5D=Epic+Games&sortby=DealRating">
+                <div
+                    class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 text-center hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                    <p
+                        class="inline-block mb-4 rounded-lg bg-gray-800 group-hover:bg-gray-900 text-white px-4 py-2 text-sm font-medium">
+                        Epic Games
+                    </p>
+                    <p class="text-2xl font-bold text-gray-900 mb-1">1200+</p>
+                    <p class="text-sm">jeux disponibles</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="text-center mt-12">
+            <div class="bg-blue-50 rounded-lg p-6 max-w-3xl mx-auto">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">
+                    🔑 Activation instantanée garantie
+                </h3>
+                <p>
+                    Toutes nos clés sont authentiques et activables immédiatement.
+                    Recevez votre code par email en quelques secondes après l'achat.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# STATS SECTION #}
+<section class="bg-blue-50 py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Pourquoi choisir JeuxPasChers ?
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Depuis 2010, nous sommes la référence en matière de vente de jeux PC dématérialisés avec les meilleures
+                plateformes
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">10M+</div>
+                <p class="text-gray-600">Clients satisfaits</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">15K+</div>
+                <p class="text-gray-600">Jeux PC disponibles</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                <p class="text-gray-600">Support client</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600 mb-2">100%</div>
+                <p class="text-gray-600">Économies maximales</p>
+            </div>
+        </div>
+    </div>
+</section>
