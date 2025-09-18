@@ -8,6 +8,7 @@ use App\Service\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 final class CartController extends AbstractController
 {
@@ -28,27 +29,45 @@ final class CartController extends AbstractController
         
     }
 
-    #[Route('/cart/add/{id}', name: 'app_cart_add', methods: ['GET'])]
-    public function addToCart(Game $game, CartManager $cartManager): Response
+    #[Route('/cart/add', name: 'app_cart_add', methods: ['GET'])]
+    public function addToCart(Request $request, CartManager $cartManager): Response
     {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
-        $cartManager->addToCart($user, $game);
-        $this->addFlash('success', 'Jeu ajouté au panier !');
 
+        $id = $request->query->get('id'); // récupère ?id=...
+        if (!$id) {
+            throw $this->createNotFoundException('DealID manquant.');
+        }
+
+        $apiUrl = "https://www.cheapshark.com/api/1.0/deals?id=" . $id;
+        $response = file_get_contents($apiUrl);
+        $gameData = json_decode($response, true);
+
+        if (!$gameData || !isset($gameData['gameInfo'])) {
+            throw $this->createNotFoundException('Impossible de récupérer le jeu depuis l’API.');
+        }
+
+        
+        $cartManager->addToCart($user, $gameData, $id);
+
+        $this->addFlash('success', $gameData['gameInfo']['name'] . ' ajouté au panier !');
         return $this->redirectToRoute('app_cart');
     }
 
+
+
+
     #[Route('/cart/remove/{id}', name: 'app_cart_remove', methods: ['GET'])]
-    public function removeFromCart(Game $game, CartManager $cartManager): Response
+    public function removeFromCart(string $id, CartManager $cartManager): Response
     {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login'); 
         }
-        $cartManager->removeFromCart($user, $game);
+        $cartManager->removeFromCart($user, $id);
         $this->addFlash('success', 'Jeu retiré du panier !');   
 
         return $this->redirectToRoute('app_cart');

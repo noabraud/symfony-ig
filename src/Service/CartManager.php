@@ -1,75 +1,64 @@
-<?php 
+<?php
 
 namespace App\Service;
 
-use App\Entity\Cart;
 use App\Entity\User;
-use App\Entity\Game;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class CartManager
 {
-    private EntityManagerInterface $entityManager;
+    private $session;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->entityManager = $entityManager;
+        $this->session = $requestStack->getSession();
     }
 
-    public function addToCart(User $user, Game $game, int $quantity = 1): void
+    public function addToCart(User $user, array $gameData, string $dealID, int $quantity = 1): void
     {
-        $cart = $this->entityManager->getRepository(Cart::class)
-            ->findOneBy(['user' => $user, 'game' => $game]);
-            
-        if ($cart) {
-            $cart->setQuantity($cart->getQuantity() + $quantity);
+        $key = 'cart_'.$user->getId();
+        $cart = $this->session->get($key, []);
+
+        if (isset($cart[$dealID])) {
+            $cart[$dealID]['quantity'] += $quantity;
         } else {
-            $cart = new Cart();
-            $cart->setUser($user);
-            $cart->setGame($game);
-            $cart->setQuantity($quantity);
-            $this->entityManager->persist($cart);
+            $cart[$dealID] = [
+                'title' => $gameData['gameInfo']['name'],
+                'price' => (float) $gameData['gameInfo']['salePrice'],
+                'normalPrice' => (float) $gameData['gameInfo']['retailPrice'],
+                'thumb' => $gameData['gameInfo']['thumb'],
+                'quantity' => $quantity,
+            ];
         }
-        $this->entityManager->flush();
+
+        $this->session->set($key, $cart);
     }
 
-    public function removeFromCart(User $user, Game $game): void
+    public function removeFromCart(User $user, string $dealID): void
     {
-        $cart = $this->entityManager->getRepository(Cart::class)
-            ->findOneBy(['user' => $user, 'game' => $game]);
-
-        if ($cart) {
-            $this->entityManager->remove($cart);
-            $this->entityManager->flush();
-        }
+        $key = 'cart_'.$user->getId();
+        $cart = $this->session->get($key, []);
+        unset($cart[$dealID]);
+        $this->session->set($key, $cart);
     }
 
     public function getCartItems(User $user): array
     {
-        return $this->entityManager->getRepository(Cart::class)
-            ->findBy(['user' => $user]);
+        return $this->session->get('cart_'.$user->getId(), []);
     }
 
     public function getCartTotal(User $user): float
     {
-        $cartItems = $this->getCartItems($user);
+        $items = $this->getCartItems($user);
         $total = 0.0;
-
-        foreach ($cartItems as $item) {
-            $total += $item->getGame()->getPrice() * $item->getQuantity();
+        foreach ($items as $item) {
+            $total += $item['price'] * $item['quantity'];
         }
-
         return $total;
     }
 
     public function clearCart(User $user): void
     {
-        $items = $this->getCartItems($user);
-
-        foreach ($items as $item) {
-            $this->entityManager->remove($item);
-        }
-
-        $this->entityManager->flush();
+        $this->session->remove('cart_'.$user->getId());
     }
 }

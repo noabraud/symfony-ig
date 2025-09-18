@@ -17,7 +17,7 @@ class StripeManager
         Stripe::setApiKey($_ENV['STRIPE_API_KEY']);
     }
 
-    public function createCheckoutSession(User $user, string $successUrl, string $cancelUrl): Session
+     public function createCheckoutSession(User $user, string $successUrl, string $cancelUrl): Session
     {
         $items = $this->cartManager->getCartItems($user);
         $lineItems = [];
@@ -27,11 +27,11 @@ class StripeManager
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
-                        'name' => $item->getGame()->getTitle(),
+                        'name' => $item['title'],
                     ],
-                    'unit_amount' => (int)($item->getGame()->getPrice() * 100),
+                    'unit_amount' => (int)($item['price'] * 100), 
                 ],
-                'quantity' => $item->getQuantity(),
+                'quantity' => $item['quantity'], 
             ];
         }
 

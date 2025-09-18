@@ -69,9 +69,10 @@
         </div>
 
         {# Add to cart button #}
-        <button class="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
+        <a href="{{ path('app_cart_add') }}?id={{ game.dealID|url_encode }}"
+            class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
             <i class="fa-solid fa-cart-shopping"></i>
             Ajouter au panier
-        </button>
+        </a>
     </div>
 </div>

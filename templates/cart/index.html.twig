@@ -3,7 +3,7 @@
 {% block title %}{{ 'cart.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'cart.title'|trans }}</h1>
+    <h1 class="mb-4">{{ 'cart.title'|trans }}</h1>
 
     {% if items|length > 0 %}
         <table class="table">
@@ -17,14 +17,19 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in items %}
+                {% for dealID, item in items %}
                     <tr>
-                        <td>{{ item.game.title }}</td>
-                        <td>{{ item.game.price }} €</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.game.price * item.quantity }} €</td>
                         <td>
-                            <a href="{{ path('app_cart_remove', {'id': item.game.id}) }}" class="btn btn-danger">{{ 'cart.remove'|trans }}</a>
+                            <img src="{{ item.thumb }}" alt="{{ item.title }}" width="80" class="me-2">
+                            {{ item.title }}
+                        </td>
+                        <td>{{ item.price|number_format(2, '.', ' ') }} €</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ (item.price * item.quantity)|number_format(2, '.', ' ') }} €</td>
+                        <td>
+                            <a href="{{ path('app_cart_remove', {'id': dealID}) }}" class="btn btn-danger">
+                                {{ 'cart.remove'|trans }}
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -32,9 +37,11 @@
             <tfoot>
                 <tr>
                     <th colspan="3">{{ 'cart.total'|trans }}</th>
-                    <th>{{ total }} €</th>
+                    <th>{{ total|number_format(2, '.', ' ') }} €</th>
                     <th>
-                        <a href="{{ path('app_payment_checkout') }}" class="btn btn-success">{{ 'cart.checkout'|trans }}</a>
+                        <a href="{{ path('app_payment_checkout') }}" class="btn btn-success">
+                            {{ 'cart.checkout'|trans }}
+                        </a>
                     </th>
                 </tr>
             </tfoot>
