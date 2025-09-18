@@ -105,5 +105,22 @@ home:
   message3: "Découvrez notre catalogue de plus de 15,000 jeux PC avec des clés Steam, Epic Games, GOG et bien plus. Des réductions jusqu'à 90% tous les jours."
   explore: "Découvrir les promotions"
   browse: "Parcourir le catalogue"
+
+stats:
+  title1: "Toutes les plateformes PC"
+  message1: "Nous proposons des jeux de toutes les principales plateformes PC. Activez vos clés instantanément sur votre launcher préféré."
+  steam: "Steam"
+  gog: "GOG"
+  ubisoft: "Ubisoft Connect"
+  epic: "Epic Games"
+  available: "jeux disponibles"
+  activation_title: "Activation instantanée garantie"
+  activation_message: "Toutes nos clés sont authentiques et activables immédiatement. Recevez votre code par email en quelques secondes après l'achat."
+  title2: "Pourquoi choisir JeuxPasChers ?"
+  message2: "Depuis 2010, nous sommes la référence en matière de vente de jeux PC dématérialisés avec les meilleures plateformes"
+  satisfied: "Clients satisfaits"
+  support: "Support client"
+  savings: "Économies  maximales"
+  
   
   
