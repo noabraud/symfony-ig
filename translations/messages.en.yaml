@@ -1,5 +1,5 @@
 welcome:
-  title: "Welcome to my website"
+  title: "CheapGames"
   message: 'Welcome'
 menu:
   home: "Home"
@@ -9,6 +9,10 @@ menu:
   logout: "Logout"
   login: "Login"
   register: "Register"
+  new_releases: "New Releases"
+  best_savings : "Best Savings"
+  best_sellers: "Best Sellers"
+  platforms: "Platforms"
 head:
   title: "My Game Store"
 login:
@@ -93,3 +97,10 @@ payment_success:
   back_to_cart: "Back to cart"
   back_to_home: "Back to home"
   flash: "Payment successful! Your cart has been cleared."
+
+home:
+  message1: "The Best PC Games"
+  message2: "at the Best Prices"
+  message3: "Discover our catalog of over 15,000 PC games with Steam, Epic Games, GOG keys and more. Discounts up to 90% every day."
+  explore: "Explore the deals"
+  browse: "Browse the catalog"

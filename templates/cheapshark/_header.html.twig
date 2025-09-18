@@ -5,7 +5,7 @@
             <div class="flex items-center space-x-4">
                 <h1 class="text-2xl font-bold text-blue-600 hover:text-blue-700">
                     <a href="{{ path('app_cheapshark_index') }}">
-                        JeuxPasChers
+                        {{ 'welcome.title'|trans }}
                     </a>
                 </h1>
                 <span>
@@ -16,16 +16,16 @@
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="{{ path('app_cheapshark_index') }}#recentReleases"
                     class="hover:text-blue-600 transition-colors">
-                    Nouveautés
+                    {{ 'menu.new_releases'|trans }}
                 </a>
                 <a href="{{ path('app_cheapshark_index') }}#bestSavings" class="hover:text-blue-600 transition-colors">
-                    Promotions
+                    {{ 'menu.best_savings'|trans }}
                 </a>
                 <a href="{{ path('app_cheapshark_index') }}#bestSellers" class="hover:text-blue-600 transition-colors">
-                    Top ventes
+                    {{ 'menu.best_sellers'|trans }}
                 </a>
                 <a href="{{ path('app_cheapshark_index') }}#platforms" class="hover:text-blue-600 transition-colors">
-                    Plateformes
+                    {{ 'menu.platforms'|trans }}
                 </a>
             </nav>
             {# SEARCH FORM #}

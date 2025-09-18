@@ -1,5 +1,5 @@
 welcome:
-  title: "Bienvenue sur mon site"
+  title: "JeuxPasChers"
   message: 'bienvenue'
 menu:
   home: "Accueil"
@@ -9,6 +9,10 @@ menu:
   logout: "Déconnexion"
   login: "Connexion"
   register: "Inscription"
+  new_releases: "Nouveautés"
+  best_savings : "Promotions"
+  best_sellers: "Top ventes"
+  platforms: "Plateformes"
 head:
   title: "Ma boutique de jeux"
 login:
@@ -94,4 +98,12 @@ payment_success:
   back_to_cart: "Retour au panier"
   back_to_home: "Retour à l'accueil"
   flash: "Paiement réussi ! Votre panier a été vidé."
+
+home:
+  message1: "Les meilleurs jeux PC"
+  message2: "aux meilleurs prix"
+  message3: "Découvrez notre catalogue de plus de 15,000 jeux PC avec des clés Steam, Epic Games, GOG et bien plus. Des réductions jusqu'à 90% tous les jours."
+  explore: "Découvrir les promotions"
+  browse: "Parcourir le catalogue"
+  
   
