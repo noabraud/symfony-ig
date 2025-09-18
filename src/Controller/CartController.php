@@ -60,12 +60,17 @@ final class CartController extends AbstractController
 
 
 
-    #[Route('/cart/remove/{id}', name: 'app_cart_remove', methods: ['GET'])]
-    public function removeFromCart(string $id, CartManager $cartManager): Response
+    #[Route('/cart/remove', name: 'app_cart_remove', methods: ['GET'])]
+    public function removeFromCart(Request $request, CartManager $cartManager): Response
     {
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login'); 
+        }
+
+        $id = $request->query->get('id'); // récupère ?id=...
+        if (!$id) {
+            throw $this->createNotFoundException('DealID manquant.');
         }
         $cartManager->removeFromCart($user, $id);
         $this->addFlash('success', 'Jeu retiré du panier !');   

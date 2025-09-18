@@ -36,11 +36,15 @@ class CartManager
 
     public function removeFromCart(User $user, string $dealID): void
     {
-        $key = 'cart_'.$user->getId();
+        $key = 'cart_' . $user->getId();
         $cart = $this->session->get($key, []);
-        unset($cart[$dealID]);
-        $this->session->set($key, $cart);
+
+        if (isset($cart[$dealID])) {
+            unset($cart[$dealID]);
+            $this->session->set($key, $cart);
+        }
     }
+
 
     public function getCartItems(User $user): array
     {

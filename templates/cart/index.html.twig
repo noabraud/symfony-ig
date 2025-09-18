@@ -27,7 +27,7 @@
                         <td>{{ item.quantity }}</td>
                         <td>{{ (item.price * item.quantity)|number_format(2, '.', ' ') }} €</td>
                         <td>
-                            <a href="{{ path('app_cart_remove', {'id': dealID}) }}" class="btn btn-danger">
+                            <a href="{{ path('app_cart_remove') }}?id={{ dealID|url_encode }}" class="btn btn-danger">
                                 {{ 'cart.remove'|trans }}
                             </a>
                         </td>
