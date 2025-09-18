@@ -14,10 +14,8 @@ class CheapsharkApi
     private $storesID = [
         'Steam' => 1,
         'GOG' => 7,
-        'Origin' => 8,
         'Ubisoft Connect' => 13,
-        'Epic Games' => 25,
-        'Battle.net' => 31
+        'Epic Games' => 25
     ];
 
     //-- Methods --\\
