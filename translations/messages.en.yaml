@@ -162,3 +162,9 @@ search:
   none_message: "Try adjusting your search criteria"
   filters: "Filters"
   delete_filters: "Clear all filters"
+
+gamepage:
+  deals: "Available Deals"
+  cheapest: "Lowest Price"
+  instead: "instead of"
+  store: "Store"

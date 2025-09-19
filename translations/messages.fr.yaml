@@ -161,6 +161,10 @@ search:
   none_message: "Essayez de modifier vos critères de recherche"
   filters: "Filtres"
   delete_filters: "Effacer tous les filtres"
-  
+gamepage:
+  deals: "Offres disponibles"
+  cheapest: "Prix le plus bas"
+  instead: "au lieu de"
+  store: "Magasin"
   
   
