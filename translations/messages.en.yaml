@@ -154,3 +154,11 @@ gamecard:
   add_to_cart: "Add to cart"
   free: "Free"
   unavailable_note: "Rating unavailable"
+
+search:
+  title: "Search PC Games"
+  found: "game(s) found"
+  none: "No games found"
+  none_message: "Try adjusting your search criteria"
+  filters: "Filters"
+  delete_filters: "Clear all filters"

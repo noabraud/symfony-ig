@@ -154,6 +154,13 @@ gamecard:
   add_to_cart: "Ajouter au panier"
   free: "Gratuit"
   unavailable_note: "Note indisponible"
+search:
+  title: "Rechercher des jeux PC"
+  found: "jeu(x) trouvé(s)"
+  none: "Aucun jeu trouvé"
+  none_message: "Essayez de modifier vos critères de recherche"
+  filters: "Filtres"
+  delete_filters: "Effacer tous les filtres"
   
   
   

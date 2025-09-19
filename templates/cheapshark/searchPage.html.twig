@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Promotions{% endblock %}
+{% block title %}{{'welcome.title'|trans}}{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
     <div class="container mx-auto px-4 py-8">
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-4">
-                Rechercher des jeux PC
+                {{'search.title'|trans}}
             </h1>
         </div>
 
@@ -17,7 +17,7 @@
             {# FILTERS DESKTOP #}
             <div class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
                 <div class="flex items-center justify-between mb-6">
-                    <h2 class="font-semibold text-gray-900">Filtres</h2>
+                    <h2 class="font-semibold text-gray-900">{{'search.filters'|trans}}</h2>
                     <i class="fa-solid fa-filter w-5 h-5 text-gray-500"></i>
                 </div>
                 {# filtres content #}
@@ -33,7 +33,7 @@
                         {# MOBILE FILTERS #}
 
                         <div class="text-sm text-gray-600">
-                            {{ games|length }} jeu(x) trouvé(s)
+                            {{ games|length }} {{'search.found'|trans}}
                         </div>
                     </div>
 
@@ -52,10 +52,9 @@
                     {% if games is empty %}
                     <div class="text-center py-12">
                         <i class="fa-solid fa-magnifying-glass text-6xl text-gray-300 mx-auto mb-4"></i>
-                        <h3 class="text-xl font-medium text-gray-900 mb-2">Aucun jeu trouvé</h3>
-                        <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
-                        <button class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">Effacer tous les
-                            filtres</button>
+                        <h3 class="text-xl font-medium text-gray-900 mb-2">{{'search.none'|trans}}</h3>
+                        <p class="text-gray-600 mb-4">{{'search.none_message'|trans}}</p>
+                        <button class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">{{'search.delete_filters'|trans}}</button>
                     </div>
                     {% else %}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
