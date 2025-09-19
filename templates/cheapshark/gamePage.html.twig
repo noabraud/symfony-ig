@@ -13,13 +13,13 @@
 
     <img src="{{ image }}" alt="{{ title }}">
 
-    <p>Prix le plus bas : {{ cheapest }}$</p>
+    <p>{{'gamepage.cheapest'|trans}} {{ cheapest }}$</p>
 
-    <h2>Deals disponibles :</h2>
+    <h2>{{'gamepage.deals'|trans}} :</h2>
     <ul>
         {% for deal in deals %}
         <li>
-            Magasin {{ app.session.get('stores')[deal.storeID] }} : {{ deal.price }}$ (au lieu de {{ deal.retailPrice }}$)
+            {{'gamepage.store'|trans}} {{ app.session.get('stores')[deal.storeID] }} : {{ deal.price }}$ ({{'gamepage.instead'|trans}} {{ deal.retailPrice }}$)
         </li>
         {% endfor %}
 

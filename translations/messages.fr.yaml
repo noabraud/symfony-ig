@@ -1,5 +1,5 @@
 welcome:
-  title: "Bienvenue sur mon site"
+  title: "JeuxPasChers"
   message: 'bienvenue'
 menu:
   home: "Accueil"
@@ -9,6 +9,11 @@ menu:
   logout: "Déconnexion"
   login: "Connexion"
   register: "Inscription"
+  new_releases: "Nouveautés"
+  best_savings : "Promotions"
+  best_sellers: "Top ventes"
+  platforms: "Plateformes"
+  search: "Rechercher un jeu..."
 head:
   title: "Ma boutique de jeux"
 login:
@@ -94,4 +99,72 @@ payment_success:
   back_to_cart: "Retour au panier"
   back_to_home: "Retour à l'accueil"
   flash: "Paiement réussi ! Votre panier a été vidé."
+
+home:
+  message1: "Les meilleurs jeux PC"
+  message2: "aux meilleurs prix"
+  message3: "Découvrez notre catalogue de plus de 15,000 jeux PC avec des clés Steam, Epic Games, GOG et bien plus. Des réductions jusqu'à 90% tous les jours."
+  explore: "Découvrir les promotions"
+  browse: "Parcourir le catalogue"
+  newcomers: "Nouveautés PC"
+  message_newcomers: "Les dernières sorties sur les plateformes"
+  best_deals: "Meilleures promotions"
+  message_best_deals: "Ne ratez pas ces offres exceptionnelles sur PC"
+  best_sellers: "Jeux populaires"
+  message_best_sellers: "Les jeux PC les plus vendus"
+
+stats:
+  title1: "Toutes les plateformes PC"
+  message1: "Nous proposons des jeux de toutes les principales plateformes PC. Activez vos clés instantanément sur votre launcher préféré."
+  steam: "Steam"
+  gog: "GOG"
+  ubisoft: "Ubisoft Connect"
+  epic: "Epic Games"
+  available: "jeux disponibles"
+  activation_title: "Activation instantanée garantie"
+  activation_message: "Toutes nos clés sont authentiques et activables immédiatement. Recevez votre code par email en quelques secondes après l'achat."
+  title2: "Pourquoi choisir JeuxPasChers ?"
+  message2: "Depuis 2010, nous sommes la référence en matière de vente de jeux PC dématérialisés avec les meilleures plateformes"
+  satisfied: "Clients satisfaits"
+  support: "Support client"
+  savings: "Économies  maximales"
+
+footer: 
+  offers: "Restez informé des meilleures promotions"
+  message1: "Recevez nos offres exclusives directement dans votre boîte mail"
+  email: "Email"
+  subscribe: "S'abonner"
+  message2: "La marketplace de référence pour acheter vos jeux PC au meilleur prix. Plus de 15,000 jeux PC disponibles sur Steam, Epic Games, GOG et plus. Réductions jusqu'à 90%."
+  links: "Liens rapides" 
+  customer: "Service client"
+  faq: "FAQ"
+  support: "Support"
+  returns: "Retours & Remboursements"
+  contact: "Nous contacter"
+  account: "Mon compte"
+  informations: "Informations légales"
+  general_terms: "Conditions générales"
+  privacy_policy: "Politique de confidentialité"
+  legal_notice: "Mentions légales"
+  cookies: "Cookies"
+  rights: "© 2025 JeuxPasChers. Tous droits réservés."
+  secured: "Paiements sécurisés"
+
+gamecard:
+  add_to_cart: "Ajouter au panier"
+  free: "Gratuit"
+  unavailable_note: "Note indisponible"
+search:
+  title: "Rechercher des jeux PC"
+  found: "jeu(x) trouvé(s)"
+  none: "Aucun jeu trouvé"
+  none_message: "Essayez de modifier vos critères de recherche"
+  filters: "Filtres"
+  delete_filters: "Effacer tous les filtres"
+gamepage:
+  deals: "Offres disponibles"
+  cheapest: "Prix le plus bas"
+  instead: "au lieu de"
+  store: "Magasin"
+  
   

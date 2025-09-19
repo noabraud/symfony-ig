@@ -1,5 +1,5 @@
 welcome:
-  title: "Welcome to my website"
+  title: "CheapGames"
   message: 'Welcome'
 menu:
   home: "Home"
@@ -9,6 +9,11 @@ menu:
   logout: "Logout"
   login: "Login"
   register: "Register"
+  new_releases: "New Releases"
+  best_savings : "Best Savings"
+  best_sellers: "Best Sellers"
+  platforms: "Platforms"
+  search: "Search for a game..."
 head:
   title: "My Game Store"
 login:
@@ -93,3 +98,73 @@ payment_success:
   back_to_cart: "Back to cart"
   back_to_home: "Back to home"
   flash: "Payment successful! Your cart has been cleared."
+
+home:
+  message1: "The Best PC Games"
+  message2: "at the Best Prices"
+  message3: "Discover our catalog of over 15,000 PC games with Steam, Epic Games, GOG keys and more. Discounts up to 90% every day."
+  explore: "Explore the deals"
+  browse: "Browse the catalog"
+  newcomers: "PC New Releases"
+  message_newcomers: "The latest releases on all platforms"
+  best_deals: "Best Deals"
+  message_best_deals: "Don't miss these amazing PC offers"
+  best_sellers: "Best Sellers"
+  message_best_sellers: "The top-selling PC games"
+
+
+stats:
+  title1: "All PC Platforms"
+  message1: "We offer games from all major PC platforms. Activate your keys instantly on your favorite launcher."
+  steam: "Steam"
+  gog: "GOG"
+  ubisoft: "Ubisoft Connect"
+  epic: "Epic Games"
+  available: "games available"
+  activation_title: "Instant Activation Guaranteed"
+  activation_message: "All our keys are authentic and can be activated immediately. Receive your code by email just seconds after your purchase."
+  title2: "Why Choose CheapGames?"
+  message2: "Since 2010, we have been the go-to reference for digital PC game sales with the best platforms."
+  satisfied: "Satisfied Customers"
+  support: "Customer Support"
+  savings: "Maximum Savings"
+
+footer:
+  offers: "Stay informed about the best deals"
+  message1: "Receive our exclusive offers directly in your inbox"
+  email: "Email"
+  subscribe: "Subscribe"
+  message2: "The leading marketplace to buy your PC games at the best price. Over 15,000 PC games available on Steam, Epic Games, GOG, and more. Discounts up to 90%."
+  links: "Quick links"
+  customer: "Customer Service"
+  faq: "FAQ"
+  support: "Support"
+  returns: "Returns & Refunds"
+  contact: "Contact us"
+  account: "My account"
+  informations: "Legal information"
+  general_terms: "Terms & Conditions"
+  privacy_policy: "Privacy Policy"
+  legal_notice: "Legal Notice"
+  cookies: "Cookies"
+  rights: "© 2025 CheapGames. All rights reserved."
+  secured: "Secured payments"
+
+gamecard:
+  add_to_cart: "Add to cart"
+  free: "Free"
+  unavailable_note: "Rating unavailable"
+
+search:
+  title: "Search PC Games"
+  found: "game(s) found"
+  none: "No games found"
+  none_message: "Try adjusting your search criteria"
+  filters: "Filters"
+  delete_filters: "Clear all filters"
+
+gamepage:
+  deals: "Available Deals"
+  cheapest: "Lowest Price"
+  instead: "instead of"
+  store: "Store"
