@@ -13,6 +13,7 @@ menu:
   best_savings : "Promotions"
   best_sellers: "Top ventes"
   platforms: "Plateformes"
+  search: "Rechercher un jeu..."
 head:
   title: "Ma boutique de jeux"
 login:
@@ -121,6 +122,28 @@ stats:
   satisfied: "Clients satisfaits"
   support: "Support client"
   savings: "Économies  maximales"
+
+footer: 
+  offers: "Restez informé des meilleures promotions"
+  message1: "Recevez nos offres exclusives directement dans votre boîte mail"
+  email: "Email"
+  subscribe: "S'abonner"
+  message2: "La marketplace de référence pour acheter vos jeux PC au meilleur prix. Plus de 15,000 jeux PC disponibles sur Steam, Epic Games, GOG et plus. Réductions jusqu'à 90%."
+  links: "Liens rapides" 
+  customer: "Service client"
+  faq: "FAQ"
+  support: "Support"
+  returns: "Retours & Remboursements"
+  contact: "Nous contacter"
+  account: "Mon compte"
+  informations: "Informations légales"
+  general_terms: "Conditions générales"
+  privacy_policy: "Politique de confidentialité"
+  legal_notice: "Mentions légales"
+  cookies: "Cookies"
+  rights: "© 2025 JeuxPasChers. Tous droits réservés."
+  secured: "Paiements sécurisés"
+
   
   
   

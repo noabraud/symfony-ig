@@ -13,6 +13,7 @@ menu:
   best_savings : "Best Savings"
   best_sellers: "Best Sellers"
   platforms: "Platforms"
+  search: "Search for a game..."
 head:
   title: "My Game Store"
 login:
@@ -120,3 +121,24 @@ stats:
   satisfied: "Satisfied Customers"
   support: "Customer Support"
   savings: "Maximum Savings"
+
+footer:
+  offers: "Stay informed about the best deals"
+  message1: "Receive our exclusive offers directly in your inbox"
+  email: "Email"
+  subscribe: "Subscribe"
+  message2: "The leading marketplace to buy your PC games at the best price. Over 15,000 PC games available on Steam, Epic Games, GOG, and more. Discounts up to 90%."
+  links: "Quick links"
+  customer: "Customer Service"
+  faq: "FAQ"
+  support: "Support"
+  returns: "Returns & Refunds"
+  contact: "Contact us"
+  account: "My account"
+  informations: "Legal information"
+  general_terms: "Terms & Conditions"
+  privacy_policy: "Privacy Policy"
+  legal_notice: "Legal Notice"
+  cookies: "Cookies"
+  rights: "© 2025 CheapGames. All rights reserved."
+  secured: "Secured payments"
