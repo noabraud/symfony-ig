@@ -105,6 +105,13 @@ home:
   message3: "Discover our catalog of over 15,000 PC games with Steam, Epic Games, GOG keys and more. Discounts up to 90% every day."
   explore: "Explore the deals"
   browse: "Browse the catalog"
+  newcomers: "PC New Releases"
+  message_newcomers: "The latest releases on all platforms"
+  best_deals: "Best Deals"
+  message_best_deals: "Don't miss these amazing PC offers"
+  best_sellers: "Best Sellers"
+  message_best_sellers: "The top-selling PC games"
+
 
 stats:
   title1: "All PC Platforms"

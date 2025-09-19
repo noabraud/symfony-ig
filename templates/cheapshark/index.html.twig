@@ -13,12 +13,12 @@
         <a href="{{ path('app_cheapshark_search') }}?sortby=Release">
             <h2
                 class="inline-block text-3xl font-bold text-gray-700 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
-                Nouveautés PC
+                {{'home.newcomers'|trans}}
                 <i class="fa-solid fa-angles-right transition-colors"></i>
             </h2>
         </a>
 
-        <p class="text-gray-600">Les dernières sorties sur les plateformes</p>
+        <p class="text-gray-600">{{'home.message_newcomers'|trans}}</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -35,11 +35,11 @@
             <a href="{{ path('app_cheapshark_search') }}?sortby=Savings">
                 <h2
                     class="inline-block text-3xl font-bold text-gray-100 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
-                    Meilleures promotions
+                    {{'home.best_deals'|trans}}
                     <i class="fa-solid fa-angles-right transition-colors"></i>
                 </h2>
             </a>
-            <p class="text-gray-50">Ne ratez pas ces offres exceptionnelles sur PC</p>
+            <p class="text-gray-50">{{'home.message_best_deals'|trans}}</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -56,11 +56,11 @@
         <a href="{{ path('app_cheapshark_search') }}?sortby=DealRating">
             <h2
                 class="inline-block text-3xl font-bold text-gray-700 hover:text-blue-600 transition-colors mb-2 cursor-pointer">
-                Jeux populaires
+                {{'home.best_sellers'|trans}}
                 <i class="fa-solid fa-angles-right transition-colors"></i>
             </h2>
         </a>
-        <p class="text-gray-600">Les jeux PC les plus vendus</p>
+        <p class="text-gray-600">{{'home.message_best_sellers'|trans}}</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

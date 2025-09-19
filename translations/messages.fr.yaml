@@ -106,6 +106,12 @@ home:
   message3: "Découvrez notre catalogue de plus de 15,000 jeux PC avec des clés Steam, Epic Games, GOG et bien plus. Des réductions jusqu'à 90% tous les jours."
   explore: "Découvrir les promotions"
   browse: "Parcourir le catalogue"
+  newcomers: "Nouveautés PC"
+  message_newcomers: "Les dernières sorties sur les plateformes"
+  best_deals: "Meilleures promotions"
+  message_best_deals: "Ne ratez pas ces offres exceptionnelles sur PC"
+  best_sellers: "Jeux populaires"
+  message_best_sellers: "Les jeux PC les plus vendus"
 
 stats:
   title1: "Toutes les plateformes PC"
