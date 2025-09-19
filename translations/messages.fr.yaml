@@ -150,6 +150,10 @@ footer:
   rights: "© 2025 JeuxPasChers. Tous droits réservés."
   secured: "Paiements sécurisés"
 
+gamecard:
+  add_to_cart: "Ajouter au panier"
+  free: "Gratuit"
+  unavailable_note: "Note indisponible"
   
   
   

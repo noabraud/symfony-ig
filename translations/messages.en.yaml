@@ -149,3 +149,8 @@ footer:
   cookies: "Cookies"
   rights: "© 2025 CheapGames. All rights reserved."
   secured: "Secured payments"
+
+gamecard:
+  add_to_cart: "Add to cart"
+  free: "Free"
+  unavailable_note: "Rating unavailable"

@@ -47,7 +47,7 @@
                 ({{ rating }}/5)
             </span>
             {% else %}
-            <p class="text-gray-400">Note indisponible</p>
+            <p class="text-gray-400">{{'gamecard.unavailable_note'|trans}}</p>
             {% endif %}
         </div>
 
@@ -56,7 +56,7 @@
             <div class="flex items-center gap-2">
                 {% if isOnSale %}
                 <span class="text-lg font-bold text-blue-600">
-                    {% if game.salePrice <= 0 %} FREE {% else %} {{ game.salePrice }}€ {% endif %} </span>
+                    {% if game.salePrice <= 0 %} {{'gamecard.free'|trans}} {% else %} {{ game.salePrice }}€ {% endif %} </span>
                         <span class="text-sm text-gray-500 line-through">
                             {{ game.normalPrice }}€
                         </span>
@@ -72,7 +72,7 @@
         <a href="{{ path('app_cart_add') }}?id={{ game.dealID|url_encode }}"
             class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
             <i class="fa-solid fa-cart-shopping"></i>
-            Ajouter au panier
+            {{'gamecard.add_to_cart'|trans}}
         </a>
     </div>
 </div>
