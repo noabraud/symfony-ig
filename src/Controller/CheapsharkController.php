@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Component\Validator\Constraints\Length;
 
 final class CheapsharkController extends AbstractController
 {
@@ -55,12 +55,17 @@ final class CheapsharkController extends AbstractController
     {
         $stores = $request->query->all('stores');
 
+        if (sizeof($stores) <= 0)
+        {
+            $stores = ['Steam', 'GOG', 'Ubisoft Connect', 'Epic Games'];
+        }
+
         $options = [
             'title' => $request->query->getString('title', ''),
             'storeID' => $api->getStoresID($stores),
             'pageNumber' => $request->query->getInt('pageNumber', 0),
             'pageSize' => $request->query->getInt('pageSize', 20),
-            'sortBy' => $request->query->getString('sortby', 'DealRating'),
+            'sortBy' => $request->query->getString('sortBy', 'DealRating'),
             'desc' => $request->query->getBoolean('desc', false),
             'onSale' => $request->query->getBoolean('onSale', false),
             'steamRating' => $request->query->getInt('note', 0),

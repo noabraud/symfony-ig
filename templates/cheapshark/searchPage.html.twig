@@ -15,7 +15,7 @@
 
         <div class="flex gap-8">
             {# FILTERS DESKTOP #}
-            <form class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
+            <form id="filterForm" class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="font-semibold text-gray-900">Filtres</h2>
                     <i class="fa-solid fa-filter w-5 h-5 text-gray-500"></i>
@@ -28,7 +28,10 @@
                         <div class="flex flex-col gap-2 max-h-48 overflow-y-auto">
                             {% for store in app.session.get('stores') %}
                             <div class="flex gap-2">
-                                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
+                                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" 
+                                {% if store in stores %}
+                                checked
+                                {% endif %}>
                                 <label for="{{ store }}">{{ store }}</label>
                             </div>
                             {% endfor %}
@@ -125,18 +128,18 @@
 
                     {# On sale filter #}
                     <div class="flex gap-2">
-                        <input type="checkbox">
-                        <label class="font-medium">En promo uniquement</label>
+                        <input id="onSale" name="onSale" type="checkbox">
+                        <label for="onSale" class="font-medium">En promo uniquement</label>
                     </div>
 
                     <div class="flex flex-col gap-2">
                         {# Apply filters button #}
-                        <button type="submit" href="{{ path('app_cheapshark_search') }}"
+                        <button id="applyFilters"
                             class="bg-blue-600 rounded-lg px-4 py-2 hover:bg-blue-700 text-gray-50 w-full text-center">Appliquer
                             les filtres</button>
 
                         {# Erase filters button #}
-                        <button type="submit" href="{{ path('app_cheapshark_search') }}"
+                        <button id="resetFilters"
                             class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 w-full text-center">Effacer
                             les filtres</button>
                     </div>
@@ -194,12 +197,10 @@
                             'sortBy': options.sortBy,
                             'desc': options.desc,
                             'onSale': options.onSale,
-                            'steamRating': options.steamRating,
-                            'metacritic': options.metacritic,
+                            'note': options.steamRating,
                             'lowerPrice': options.lowerPrice,
                             'upperPrice': options.upperPrice
-                        }) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">1</a>
+                        }) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">1</a>
                         {% endif %}
 
                         {# Page précédente #}
@@ -212,12 +213,11 @@
                             'sortBy': options.sortBy,
                             'desc': options.desc,
                             'onSale': options.onSale,
-                            'steamRating': options.steamRating,
-                            'metacritic': options.metacritic,
+                            'note': options.steamRating,
                             'lowerPrice': options.lowerPrice,
                             'upperPrice': options.upperPrice                     
-                        }) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ options.pageNumber
+                        }) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{
+                            options.pageNumber
                             }}</a>
                         {% endif %}
 
@@ -236,8 +236,7 @@
                             'sortBy': options.sortBy,
                             'desc': options.desc,
                             'onSale': options.onSale,
-                            'steamRating': options.steamRating,
-                            'metacritic': options.metacritic,
+                            'note': options.steamRating,
                             'lowerPrice': options.lowerPrice,
                             'upperPrice': options.upperPrice
                         }) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{
@@ -251,5 +250,49 @@
         </div>
 
     </div>
+
+
+    <script>
+
+        // APPLY FILTERS BUTTON
+        document.getElementById('applyFilters').addEventListener('click', function () {
+            const form = document.getElementById('filterForm');
+            const params = new URLSearchParams();
+
+            // Récupère les checkboxes "stores"
+            const stores = Array.from(form.querySelectorAll('input[name="stores[]"]:checked'))
+                .map(el => el.value);
+            stores.forEach(store => params.append('stores[]', store));
+
+            // Récupère les sliders
+            const lower = form.querySelector('#range-min')?.value || 0;
+            const upper = form.querySelector('#range-max')?.value || 500;
+            params.append('lowerPrice', lower);
+            params.append('upperPrice', upper);
+
+            const promo = form.querySelector('#onSale');
+            if (promo && promo.checked) {
+                params.append('onSale', '1');
+            }
+
+
+            const options = {{ options|json_encode|raw }};
+            
+            params.append('title', options.title);
+            params.append('sortBy', options.sortBy);
+            params.append('pageSize', options.pageSize);
+            params.append('desc', options.desc);
+
+
+            // Construit l’URL de redirection
+            const baseUrl = "{{ path('app_cheapshark_search') }}";
+            window.location.href = `${baseUrl}?${params.toString()}`;
+        });
+
+        // RESET FILTERS BUTTON
+        document.getElementById('resetFilters').addEventListener('click', function () {
+            window.location.href = "{{ path('app_cheapshark_search') }}";
+        });
+    </script>
 
     {% endblock %}
