@@ -53,23 +53,28 @@ final class CheapsharkController extends AbstractController
     #[Route('/search', name: 'app_cheapshark_search', methods: ['GET'])]
     public function search(Request $request, CheapsharkApi $api): Response
     {
-        $title = $request->query->get('title');
-
         $stores = $request->query->all('stores');
-        $page = $request->query->getInt('page', 1);
 
-        $sortBy = $request->query->get('sortby');
-        if (!$sortBy) {
-            $sortBy = 'Dealrating';
-        }
+        $options = [
+            'title' => $request->query->getString('title', ''),
+            'storeID' => $api->getStoresID($stores),
+            'pageNumber' => $request->query->getInt('pageNumber', 0),
+            'pageSize' => $request->query->getInt('pageSize', 20),
+            'sortBy' => $request->query->getString('sortby', 'DealRating'),
+            'desc' => $request->query->getBoolean('desc', false),
+            'onSale' => $request->query->getBoolean('onSale', false),
+            'steamRating' => $request->query->getInt('note', 0),
+            'metacritic' => $request->query->getInt('note', 0),
+            'lowerPrice' => $request->query->getInt('lowerPrice', 0),
+            'upperPrice' => $request->query->getInt('upperPrice', 500),
+        ];
         
-        $games = $api->getFrom('deals', ['title' => $title, 'storeID' => $api->getStoresID($stores),'pageNumber' => $page - 1, 'pageSize' => 20, 'sortBy' => $sortBy]);
+        $games = $api->getFrom('deals',  $options);
 
         return $this->render('cheapshark/searchPage.html.twig', [
             'games' => $games,
-            'currentPage' => $page,
-            'title' => $title,
-            'stores' => $stores
+            'options' => $options,
+            'stores' => $stores,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Promotions{% endblock %}
+{% block title %}Rechercher des jeux PC{% endblock %}
 
 {% block body %}
 
@@ -15,19 +15,19 @@
 
         <div class="flex gap-8">
             {# FILTERS DESKTOP #}
-            <div class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
+            <form class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="font-semibold text-gray-900">Filtres</h2>
                     <i class="fa-solid fa-filter w-5 h-5 text-gray-500"></i>
                 </div>
-                <div class="flex flex-col space-y-6">
+                <div class="flex flex-col gap-6">
 
                     {# Platforms filter #}
                     <div>
                         <label class="font-medium mb-2 block">Plateformes</label>
-                        <div class="flex flex-col space-y-2 max-h-48 overflow-y-auto">
+                        <div class="flex flex-col gap-2 max-h-48 overflow-y-auto">
                             {% for store in app.session.get('stores') %}
-                            <div class="flex space-x-2">
+                            <div class="flex gap-2">
                                 <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" checked>
                                 <label for="{{ store }}">{{ store }}</label>
                             </div>
@@ -76,7 +76,7 @@
                         </div>
 
                         <!-- Affichage valeurs -->
-                        <div class="flex justify-between mt-6 text-sm text-gray-700">
+                        <div class="flex justify-between mt-2 text-sm">
                             <span id="range-min-value">0</span>
                             <span id="range-max-value">500</span>
                         </div>
@@ -118,31 +118,30 @@
                     </script>
 
                     {# Note filter #}
-                    <div>
-                        {# <input type="range" min="0" max="200" id=""> #}
-                    </div>
-
-                    {# Age filter #}
-                    <div>
-
+                    <div class="flex flex-col">
+                        <label class="font-medium mb-2">Note minimale :</label>
+                        <input type="range" min="0" max="5" id="">
                     </div>
 
                     {# On sale filter #}
-                    <div>
-
+                    <div class="flex gap-2">
+                        <input type="checkbox">
+                        <label class="font-medium">En promo uniquement</label>
                     </div>
 
-                    {# Apply filters button #}
-                    <a href="{{ path('app_cheapshark_search') }}"
-                        class="bg-blue-600 rounded-lg px-4 py-2 hover:bg-blue-700 text-gray-50 w-full text-center">Appliquer
-                        les filtres</a>
+                    <div class="flex flex-col gap-2">
+                        {# Apply filters button #}
+                        <button type="submit" href="{{ path('app_cheapshark_search') }}"
+                            class="bg-blue-600 rounded-lg px-4 py-2 hover:bg-blue-700 text-gray-50 w-full text-center">Appliquer
+                            les filtres</button>
 
-                    {# Erase filters button #}
-                    <a href="{{ path('app_cheapshark_search') }}"
-                        class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 w-full text-center">Effacer
-                        les filtres</a>
+                        {# Erase filters button #}
+                        <button type="submit" href="{{ path('app_cheapshark_search') }}"
+                            class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 w-full text-center">Effacer
+                            les filtres</button>
+                    </div>
                 </div>
-            </div>
+            </form>
 
             {# MAIN CONTENT #}
             <div class="flex-1">
@@ -186,27 +185,63 @@
                     <div class="pagination" style="margin-top: 20px; display: flex; gap: 5px; flex-wrap: wrap;">
 
                         {# Lien vers la première page #}
-                        {% if currentPage > 1 %}
-                        <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': 1}) }}"
+                        {% if options.pageNumber > 0 %}
+                        <a href="{{ path('app_cheapshark_search', {
+                            'title': options.title, 
+                            'stores': stores, 
+                            'pageNumber': 0,
+                            'pageSize': options.pageSize,
+                            'sortBy': options.sortBy,
+                            'desc': options.desc,
+                            'onSale': options.onSale,
+                            'steamRating': options.steamRating,
+                            'metacritic': options.metacritic,
+                            'lowerPrice': options.lowerPrice,
+                            'upperPrice': options.upperPrice
+                        }) }}"
                             style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">1</a>
                         {% endif %}
 
                         {# Page précédente #}
-                        {% if currentPage > 2 %}
-                        <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage - 1}) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage - 1
+                        {% if options.pageNumber > 1 %}
+                        <a href="{{ path('app_cheapshark_search', {
+                            'title': options.title, 
+                            'stores': stores, 
+                            'pageNumber': options.pageNumber - 1,
+                            'pageSize': options.pageSize,
+                            'sortBy': options.sortBy,
+                            'desc': options.desc,
+                            'onSale': options.onSale,
+                            'steamRating': options.steamRating,
+                            'metacritic': options.metacritic,
+                            'lowerPrice': options.lowerPrice,
+                            'upperPrice': options.upperPrice                     
+                        }) }}"
+                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ options.pageNumber
                             }}</a>
                         {% endif %}
 
                         {# Page courante #}
                         <span
                             style="padding:5px 10px; border:1px solid #000; background-color:#000; color:#fff; font-weight:bold;">{{
-                            currentPage }}</span>
+                            options.pageNumber + 1 }}</span>
 
                         {# Page suivante #}
                         {% if games|length == 20 %}
-                        <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage + 1}) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage + 1
+                        <a href="{{ path('app_cheapshark_search', {
+                            'title': options.title, 
+                            'stores': stores, 
+                            'pageNumber': options.pageNumber + 1,
+                            'pageSize': options.pageSize,
+                            'sortBy': options.sortBy,
+                            'desc': options.desc,
+                            'onSale': options.onSale,
+                            'steamRating': options.steamRating,
+                            'metacritic': options.metacritic,
+                            'lowerPrice': options.lowerPrice,
+                            'upperPrice': options.upperPrice
+                        }) }}" style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{
+                            options.pageNumber + 2
                             }}</a>
                         {% endif %}
                         {% endif %}
