@@ -14,19 +14,26 @@ class CartManager
         $this->session = $requestStack->getSession();
     }
 
+    private function getSessionKey(User $user): string
+    {
+        return 'cart_' . $user->getId();
+    }
+
     public function addToCart(User $user, array $gameData, string $dealID, int $quantity = 1): void
     {
-        $key = 'cart_'.$user->getId();
+        $key = $this->getSessionKey($user);
         $cart = $this->session->get($key, []);
 
+        // Si l’item existe déjà, on incrémente
         if (isset($cart[$dealID])) {
             $cart[$dealID]['quantity'] += $quantity;
         } else {
             $cart[$dealID] = [
-                'title' => $gameData['gameInfo']['name'],
-                'price' => (float) $gameData['gameInfo']['salePrice'],
-                'normalPrice' => (float) $gameData['gameInfo']['retailPrice'],
-                'thumb' => $gameData['gameInfo']['thumb'],
+                'dealID' => $dealID,
+                'title' => $gameData['gameInfo']['name'] ?? 'Jeu inconnu',
+                'price' => (float) ($gameData['gameInfo']['salePrice'] ?? 0),
+                'normalPrice' => (float) ($gameData['gameInfo']['retailPrice'] ?? 0),
+                'thumb' => $gameData['gameInfo']['thumb'] ?? '',
                 'quantity' => $quantity,
             ];
         }
@@ -36,7 +43,7 @@ class CartManager
 
     public function removeFromCart(User $user, string $dealID): void
     {
-        $key = 'cart_' . $user->getId();
+        $key = $this->getSessionKey($user);
         $cart = $this->session->get($key, []);
 
         if (isset($cart[$dealID])) {
@@ -45,16 +52,15 @@ class CartManager
         }
     }
 
-
     public function getCartItems(User $user): array
     {
-        return $this->session->get('cart_'.$user->getId(), []);
+        return $this->session->get($this->getSessionKey($user), []);
     }
 
     public function getCartTotal(User $user): float
     {
         $items = $this->getCartItems($user);
-        $total = 0.0;
+        $total = 0;
         foreach ($items as $item) {
             $total += $item['price'] * $item['quantity'];
         }
@@ -63,6 +69,6 @@ class CartManager
 
     public function clearCart(User $user): void
     {
-        $this->session->remove('cart_'.$user->getId());
+        $this->session->remove($this->getSessionKey($user));
     }
 }

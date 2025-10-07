@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes jeux{% endblock %}
+
+{% block body %}
+<h1>Mes jeux achetés</h1>
+
+{% if games is empty %}
+    <p>Aucun jeu acheté pour le moment.</p>
+{% else %}
+    <div class="games-grid">
+        {% for item in games %}
+            <div class="game-card">
+                <h3>{{ item.gameTitle }}</h3>
+                <p>Quantité : {{ item.quantity }}</p>
+                <p>Prix : {{ item.price }} €</p>
+                <p>Acheté le {{ item.order.createdAt|date('d/m/Y H:i') }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

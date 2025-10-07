@@ -1,11 +1,10 @@
-<?php 
+<?php
 
 namespace App\Service;
 
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use App\Entity\User;
-use App\Service\CartManager;
 
 class StripeManager
 {
@@ -17,21 +16,24 @@ class StripeManager
         Stripe::setApiKey($_ENV['STRIPE_API_KEY']);
     }
 
-     public function createCheckoutSession(User $user, string $successUrl, string $cancelUrl): Session
+    public function createCheckoutSession(User $user, string $successUrl, string $cancelUrl): Session
     {
         $items = $this->cartManager->getCartItems($user);
         $lineItems = [];
 
-        foreach ($items as $item) {
+        foreach ($items as $dealID => $item) {
             $lineItems[] = [
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
                         'name' => $item['title'],
+                        'metadata' => [
+                            'deal_id' => $dealID, // garde le dealID
+                        ],
                     ],
-                    'unit_amount' => (int)($item['price'] * 100), 
+                    'unit_amount' => (int)($item['price'] * 100),
                 ],
-                'quantity' => $item['quantity'], 
+                'quantity' => $item['quantity'],
             ];
         }
 
