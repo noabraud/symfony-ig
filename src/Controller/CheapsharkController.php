@@ -33,7 +33,7 @@ final class CheapsharkController extends AbstractController
         ]);
     }
 
-    #[Route('/game', name: 'app_cheapshark', methods: ['GET'])]
+    #[Route('/game', name: 'app_cheapshark_game', methods: ['GET'])]
     public function game(Request $request, CheapsharkApi $api): Response
     {
         $id = $request->query->get('id');
@@ -45,7 +45,6 @@ final class CheapsharkController extends AbstractController
         return $this->render('cheapshark/gamePage.html.twig', [
             'title' => $game['info']['title'],
             'image' => $game['info']['thumb'],
-            'cheapest' => $game['cheapestPriceEver']['price'],
             'deals' => $api->filterDealsByAllowedStores($game['deals'], $api->getStoresID()),
         ]);
     }
