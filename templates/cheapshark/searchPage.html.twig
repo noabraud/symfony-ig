@@ -8,27 +8,151 @@
 
     <div class="container mx-auto px-4 py-8">
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">
+            <h1 class="text-3xl font-bold text-gray-50 mb-4">
                 {{'search.title'|trans}}
             </h1>
         </div>
 
         <div class="flex gap-8">
             {# FILTERS DESKTOP #}
-            <div class="hidden lg:block w-80 bg-white rounded-lg p-6 h-fit sticky top-20">
+            <form id="filterForm" class="hidden lg:block w-80 bg-gray-50 shadow-sm rounded-lg p-6 h-fit sticky top-20">
                 <div class="flex items-center justify-between mb-6">
                     <h2 class="font-semibold text-gray-900">{{'search.filters'|trans}}</h2>
                     <i class="fa-solid fa-filter w-5 h-5 text-gray-500"></i>
                 </div>
-                {# filtres content #}
-                {# filtres content #}
-                {# filtres content #}
-            </div>
+                <div class="flex flex-col gap-6">
+
+                    {# Platforms filter #}
+                    <div>
+                        <label class="font-medium mb-2 block">Plateformes</label>
+                        <div class="flex flex-col gap-2 max-h-48 overflow-y-auto">
+                            {% for store in app.session.get('stores') %}
+                            <div class="flex gap-2">
+                                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" 
+                                {% if store in stores %}
+                                checked
+                                {% endif %}>
+                                <label for="{{ store }}">{{ store }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    {# Price filter #}
+                    <div>
+                        <label class="font-medium mb-2 block">Prix :</label>
+                        <!-- Conteneur du slider -->
+                        <div class="w-72 mx-auto relative pt-6">
+                            <!-- Barre de fond -->
+                            <div
+                                class="absolute top-1/2 left-0 right-0 h-2 bg-gray-200 rounded-md transform -translate-y-1/2">
+                            </div>
+
+                            <!-- Barre active -->
+                            <div id="slider-track"
+                                class="absolute top-1/2 h-2 bg-blue-600 rounded-md transform -translate-y-1/2">
+                            </div>
+
+                            <!-- Input min -->
+                            <input id="range-min" type="range" min="0" max="500" value="0" class="absolute w-full top-2 h-2 bg-transparent pointer-events-none appearance-none 
+                                [&::-webkit-slider-thumb]:appearance-none
+                                [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
+                                [&::-webkit-slider-thumb]:bg-blue-600 
+                                [&::-webkit-slider-thumb]:rounded-full
+                                [&::-webkit-slider-thumb]:pointer-events-auto 
+                                [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4
+                                [&::-moz-range-thumb]:bg-blue-600 
+                                [&::-moz-range-thumb]:rounded-full 
+                                [&::-moz-range-thumb]:border-0" />
+
+                            <!-- Input max -->
+                            <input id="range-max" type="range" min="0" max="500" value="500" class="absolute w-full top-2 h-2 bg-transparent pointer-events-none appearance-none 
+                                [&::-webkit-slider-thumb]:appearance-none
+                                [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 
+                                [&::-webkit-slider-thumb]:bg-blue-600 
+                                [&::-webkit-slider-thumb]:rounded-full
+                                [&::-webkit-slider-thumb]:pointer-events-auto 
+                                [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4
+                                [&::-moz-range-thumb]:bg-blue-600 
+                                [&::-moz-range-thumb]:rounded-full 
+                                [&::-moz-range-thumb]:border-0" />
+                        </div>
+
+                        <!-- Affichage valeurs -->
+                        <div class="flex justify-between mt-2 text-sm">
+                            <span id="range-min-value">0</span>
+                            <span id="range-max-value">500</span>
+                        </div>
+                    </div>
+
+                    <script>
+                        const rangeMin = document.getElementById("range-min");
+                        const rangeMax = document.getElementById("range-max");
+                        const minValue = document.getElementById("range-min-value");
+                        const maxValue = document.getElementById("range-max-value");
+                        const track = document.getElementById("slider-track");
+
+                        const minGap = 5; // écart minimum entre min et max
+
+                        function updateTrack() {
+                            const percent1 = (rangeMin.value / rangeMin.max) * 100;
+                            const percent2 = (rangeMax.value / rangeMax.max) * 100;
+                            track.style.left = percent1 + "%";
+                            track.style.right = (100 - percent2) + "%";
+                            minValue.textContent = rangeMin.value;
+                            maxValue.textContent = rangeMax.value;
+                        }
+
+                        rangeMin.addEventListener("input", () => {
+                            if (parseInt(rangeMax.value) - parseInt(rangeMin.value) <= minGap) {
+                                rangeMin.value = parseInt(rangeMax.value) - minGap;
+                            }
+                            updateTrack();
+                        });
+
+                        rangeMax.addEventListener("input", () => {
+                            if (parseInt(rangeMax.value) - parseInt(rangeMin.value) <= minGap) {
+                                rangeMax.value = parseInt(rangeMin.value) + minGap;
+                            }
+                            updateTrack();
+                        });
+
+                        updateTrack(); // init
+                    </script>
+
+                    {# Note filter #}
+                    <div class="flex flex-col">
+                        <label class="font-medium mb-2">Note minimale :</label>
+                        <input type="range" min="0" max="5" id="">
+                    </div>
+
+                    {# On sale filter #}
+                    <div class="flex gap-2">
+                        <input id="onSale" name="onSale" type="checkbox" 
+                        {% if options.onSale %}
+                        checked
+                        {% endif %}>
+                        <label for="onSale" class="font-medium">En promo uniquement</label>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        {# Apply filters button #}
+                        <button id="applyFilters"
+                            class="bg-blue-600 rounded-lg px-4 py-2 hover:bg-blue-700 text-gray-50 w-full text-center">Appliquer
+                            les filtres</button>
+
+                        {# Erase filters button #}
+                        <button id="resetFilters"
+                            class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 w-full text-center">Effacer
+                            les filtres</button>
+                    </div>
+                </div>
+            </form>
 
             {# MAIN CONTENT #}
             <div class="flex-1">
                 {# TOOL BAR #}
-                <div class="bg-white rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="bg-gray-50 shadow-sm rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-4 w-full sm:w-auto">
                         {# MOBILE FILTERS #}
 
@@ -48,13 +172,14 @@
                 {# ACTIVE FILTERS #}
 
                 {# RESULTS #}
-                <div class="bg-gray-50 rounded-lg p-6">
+                <div class="bg-gray-50 shadow-sm rounded-lg p-6">
                     {% if games is empty %}
                     <div class="text-center py-12">
                         <i class="fa-solid fa-magnifying-glass text-6xl text-gray-300 mx-auto mb-4"></i>
                         <h3 class="text-xl font-medium text-gray-900 mb-2">{{'search.none'|trans}}</h3>
                         <p class="text-gray-600 mb-4">{{'search.none_message'|trans}}</p>
-                        <button class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">{{'search.delete_filters'|trans}}</button>
+                        <a href="{{ path('app_cheapshark_search') }}"
+                            class="border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100">{{'search.delete_filters'|trans}}</a>
                     </div>
                     {% else %}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -62,31 +187,57 @@
                         {% include 'cheapshark/_gameCard.html.twig' with { game: game} %}
                         {% endfor %}
                     </div>
-                    <div class="pagination" style="margin-top: 20px; display: flex; gap: 5px; flex-wrap: wrap;">
-
+                    <div class="mt-4 flex gap-2 flex-wrap justify-center">
                         {# Lien vers la première page #}
-                        {% if currentPage > 1 %}
-                        <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': 1}) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">1</a>
+                        {% if options.pageNumber > 0 %}
+                        <a href="{{ path('app_cheapshark_search', {
+                            'title': options.title, 
+                            'stores': stores, 
+                            'pageNumber': 0,
+                            'pageSize': options.pageSize,
+                            'sortBy': options.sortBy,
+                            'desc': options.desc,
+                            'onSale': options.onSale,
+                            'note': options.steamRating,
+                            'lowerPrice': options.lowerPrice,
+                            'upperPrice': options.upperPrice
+                        }) }}" class="px-3 py-2 rounded-lg shadow-sm border border-gray-700 hover:bg-gray-100">1</a>
                         {% endif %}
 
                         {# Page précédente #}
-                        {% if currentPage > 2 %}
-                        <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage - 1}) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage - 1
-                            }}</a>
+                        {% if options.pageNumber > 1 %}
+                        <a href="{{ path('app_cheapshark_search', {
+                            'title': options.title, 
+                            'stores': stores, 
+                            'pageNumber': options.pageNumber - 1,
+                            'pageSize': options.pageSize,
+                            'sortBy': options.sortBy,
+                            'desc': options.desc,
+                            'onSale': options.onSale,
+                            'note': options.steamRating,
+                            'lowerPrice': options.lowerPrice,
+                            'upperPrice': options.upperPrice                     
+                        }) }}" class="px-3 py-2 rounded-lg shadow-sm border border-gray-700 hover:bg-gray-100"><</a>
                         {% endif %}
 
                         {# Page courante #}
-                        <span
-                            style="padding:5px 10px; border:1px solid #000; background-color:#000; color:#fff; font-weight:bold;">{{
-                            currentPage }}</span>
+                        <span class="px-3 py-2 rounded-lg shadow-sm bg-blue-600 font-semibold text-white">{{
+                            options.pageNumber + 1 }}</span>
 
                         {# Page suivante #}
                         {% if games|length == 20 %}
-                        <a href="{{ path('app_cheapshark_search', {'title': title, 'stores': stores, 'page': currentPage + 1}) }}"
-                            style="padding:5px 10px; border:1px solid #ccc; text-decoration:none;">{{ currentPage + 1
-                            }}</a>
+                        <a href="{{ path('app_cheapshark_search', {
+                            'title': options.title, 
+                            'stores': stores, 
+                            'pageNumber': options.pageNumber + 1,
+                            'pageSize': options.pageSize,
+                            'sortBy': options.sortBy,
+                            'desc': options.desc,
+                            'onSale': options.onSale,
+                            'note': options.steamRating,
+                            'lowerPrice': options.lowerPrice,
+                            'upperPrice': options.upperPrice
+                        }) }}" class="px-3 py-2 rounded-lg shadow-sm border border-gray-700 hover:bg-gray-100">></a>
                         {% endif %}
                         {% endif %}
                     </div>
@@ -95,5 +246,49 @@
         </div>
 
     </div>
+
+
+    <script>
+
+        // APPLY FILTERS BUTTON
+        document.getElementById('applyFilters').addEventListener('click', function () {
+            const form = document.getElementById('filterForm');
+            const params = new URLSearchParams();
+
+            // Récupère les checkboxes "stores"
+            const stores = Array.from(form.querySelectorAll('input[name="stores[]"]:checked'))
+                .map(el => el.value);
+            stores.forEach(store => params.append('stores[]', store));
+
+            // Récupère les sliders
+            const lower = form.querySelector('#range-min')?.value || 0;
+            const upper = form.querySelector('#range-max')?.value || 500;
+            params.append('lowerPrice', lower);
+            params.append('upperPrice', upper);
+
+            const promo = form.querySelector('#onSale');
+            if (promo && promo.checked) {
+                params.append('onSale', '1');
+            }
+
+
+            const options = {{ options|json_encode|raw }};
+            
+            params.append('title', options.title);
+            params.append('sortBy', options.sortBy);
+            params.append('pageSize', options.pageSize);
+            params.append('desc', options.desc);
+
+
+            // Construit l’URL de redirection
+            const baseUrl = "{{ path('app_cheapshark_search') }}";
+            window.location.href = `${baseUrl}?${params.toString()}`;
+        });
+
+        // RESET FILTERS BUTTON
+        document.getElementById('resetFilters').addEventListener('click', function () {
+            window.location.href = "{{ path('app_cheapshark_search') }}";
+        });
+    </script>
 
     {% endblock %}

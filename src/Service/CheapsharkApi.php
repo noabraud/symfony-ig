@@ -18,6 +18,10 @@ class CheapsharkApi
         'Epic Games' => 25
     ];
 
+    private $filters = [
+        
+    ];
+
     //-- Methods --\\
     public function __construct(HttpClientInterface $c)
     {

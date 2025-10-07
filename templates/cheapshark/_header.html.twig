@@ -48,9 +48,12 @@
             {# USER #}
             <div class="flex items-center space-x-3">
                 {% if app.user %}
-                <span class="me-3">{{ 'welcome.message'|trans }}, {{ app.user.email }}</span>
-                <a href="{{ path('app_cart') }}" class="btn btn-primary me-2">{{'menu.cart'|trans}}</a>
-                <a href="{{ path('app_order_index') }}" class="btn btn-primary me-2">{{'menu.orders'|trans}}</a>
+                {# <span class="me-3">{{ 'welcome.message'|trans }}, {{ app.user.email }}</span> #}
+                <a href="{{ path('app_cart') }}"
+                    class="rounded-md py-1 px-3 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 transition-colors"><i
+                        class="fa-solid fa-cart-shopping"></i></a>
+                <a href="{{ path('app_order_index') }}"
+                    class="rounded-md py-1 px-3 border border-blue-600 bg-blue-600 text-white hover:bg-blue-700 transition-colors">{{'menu.orders'|trans}}</a>
                 <a href="{{ path('app_logout') }}"
                     class="rounded-md py-1 px-3 border border-red-600 hover:bg-gray-100 transition-colors">{{'menu.logout'|trans}}</a>
                 {% else %}
