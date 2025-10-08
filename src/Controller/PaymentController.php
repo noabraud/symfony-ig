@@ -24,8 +24,8 @@ final class PaymentController extends AbstractController
 
         $session = $stripeManager->createCheckoutSession(
             $user,
-            'http://localhost:8000/payment/success',
-            'http://localhost:8000/cart'
+            'http://127.0.0.1:8000/payment/success',
+            'http://127.0.0.1:8000/cart'
         );
 return $this->redirect($session->url);
 
