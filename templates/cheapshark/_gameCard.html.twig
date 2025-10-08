@@ -1,8 +1,10 @@
 <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group">
     {# Image container #}
     <div class="relative overflow-hidden aspect-[16/9] w-full">
-        <img src="{{ game.thumb }}" alt="{{ game.title }}"
+        <a href="{{ path('app_cheapshark_game', {'id': game.gameID}) }}">
+            <img src="{{ game.thumb }}" alt="{{ game.title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        </a>
 
         {% if game.savings <= 0 %} {% set isOnSale=false %} {% else %} {% set isOnSale=true %} {# Discount badge #}
             <span class="absolute top-2 left-2 bg-red-600 text-white rounded-md px-2 py-1 font-semibold">

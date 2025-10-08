@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Component\Validator\Constraints\Length;
 
 final class CheapsharkController extends AbstractController
 {
@@ -33,7 +33,7 @@ final class CheapsharkController extends AbstractController
         ]);
     }
 
-    #[Route('/game', name: 'app_cheapshark', methods: ['GET'])]
+    #[Route('/game', name: 'app_cheapshark_game', methods: ['GET'])]
     public function game(Request $request, CheapsharkApi $api): Response
     {
         $id = $request->query->get('id');
@@ -45,7 +45,6 @@ final class CheapsharkController extends AbstractController
         return $this->render('cheapshark/gamePage.html.twig', [
             'title' => $game['info']['title'],
             'image' => $game['info']['thumb'],
-            'cheapest' => $game['cheapestPriceEver']['price'],
             'deals' => $api->filterDealsByAllowedStores($game['deals'], $api->getStoresID()),
         ]);
     }
@@ -53,23 +52,33 @@ final class CheapsharkController extends AbstractController
     #[Route('/search', name: 'app_cheapshark_search', methods: ['GET'])]
     public function search(Request $request, CheapsharkApi $api): Response
     {
-        $title = $request->query->get('title');
-
         $stores = $request->query->all('stores');
-        $page = $request->query->getInt('page', 1);
 
-        $sortBy = $request->query->get('sortby');
-        if (!$sortBy) {
-            $sortBy = 'Dealrating';
+        if (sizeof($stores) <= 0)
+        {
+            $stores = ['Steam', 'GOG', 'Ubisoft Connect', 'Epic Games'];
         }
+
+        $options = [
+            'title' => $request->query->getString('title', ''),
+            'storeID' => $api->getStoresID($stores),
+            'pageNumber' => $request->query->getInt('pageNumber', 0),
+            'pageSize' => $request->query->getInt('pageSize', 20),
+            'sortBy' => $request->query->getString('sortBy', 'DealRating'),
+            'desc' => $request->query->getBoolean('desc', false),
+            'onSale' => $request->query->getBoolean('onSale', false),
+            'steamRating' => $request->query->getInt('note', 0),
+            'metacritic' => $request->query->getInt('note', 0),
+            'lowerPrice' => $request->query->getInt('lowerPrice', 0),
+            'upperPrice' => $request->query->getInt('upperPrice', 500),
+        ];
         
-        $games = $api->getFrom('deals', ['title' => $title, 'storeID' => $api->getStoresID($stores),'pageNumber' => $page - 1, 'pageSize' => 20, 'sortBy' => $sortBy]);
+        $games = $api->getFrom('deals',  $options);
 
         return $this->render('cheapshark/searchPage.html.twig', [
             'games' => $games,
-            'currentPage' => $page,
-            'title' => $title,
-            'stores' => $stores
+            'options' => $options,
+            'stores' => $stores,
         ]);
     }
 }
