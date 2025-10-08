@@ -22,13 +22,13 @@ final class PaymentController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        // URLs locales HTTP pour dev
-        $successUrl = 'http://localhost:8000/payment/success';
-        $cancelUrl = 'http://localhost:8000/cart';
+        $session = $stripeManager->createCheckoutSession(
+            $user,
+            'http://localhost:8000/payment/success',
+            'http://localhost:8000/cart'
+        );
+return $this->redirect($session->url);
 
-        $session = $stripeManager->createCheckoutSession($user, $successUrl, $cancelUrl);
-
-        return $this->redirect($session->url);
     }
 
     #[Route('/payment/success', name: 'app_payment_success')]
@@ -57,6 +57,7 @@ final class PaymentController extends AbstractController
 
             $em->persist($orderItem);
         }
+        //dd($orderItem);
 
         $em->persist($order);
         $em->flush();

@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserChecker implements UserCheckerInterface
 {
@@ -14,7 +15,7 @@ class UserChecker implements UserCheckerInterface
         // Non utilisé ici
     }
 
-    public function checkPostAuth(UserInterface $user): void
+    public function checkPostAuth(UserInterface $user, ?TokenInterface $token = null): void
     {
         if (!$user instanceof User) {
             return; // ignore si ce n’est pas notre entité User
