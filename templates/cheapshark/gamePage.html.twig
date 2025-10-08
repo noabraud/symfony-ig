@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Offres - {{ title }}{% endblock %}
+{% block title %} Offres - {{ game.name }}{% endblock %}
 
 {% block body %}
 
@@ -25,20 +25,70 @@
                 <div class="bg-gray-50 shadow-sm rounded-lg p-6">
                     <div class="flex flex-col md:flex-row gap-6">
                         <div class="md:w-1/3">
-                            <img src="{{ image }}" alt="{{ title }}"
+                            <img src="{{ game.thumb }}" alt="{{ game.name }}"
                                 class="w-full h-64 md:h-80 object-cover rounded-lg">
                         </div>
 
                         <div class="md:w-2/3 space-y-4">
                             <div>
-                                <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ title }}</h1>
+                                <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ game.name }}</h1>
 
                                 {# Genres #}
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="bg-gray-200 rounded-md px-2 py-1 text-sm font-semibold">
+                                        PLACEHOLDER
+                                    </span>
+                                    <span class="bg-gray-200 rounded-md px-2 py-1 text-sm font-semibold">
+                                        PLACEHOLDER
+                                    </span>
+                                    <span class="bg-gray-200 rounded-md px-2 py-1 text-sm font-semibold">
+                                        PLACEHOLDER
+                                    </span>
+                                </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4 text-sm">
                                 {# Game infos #}
+                                <div>
+                                    <span class="text-gray-600">Développeur:</span>
+                                    <p class="font-medium">PLACEHOLDER</p>
+                                </div>
+                                <div>
+                                    <span class="text-gray-600">Éditeur:</span>
+                                    <p class="font-medium">PLACEHOLDER</p>
+                                </div>
+                                <div>
+                                    <span class="text-gray-600">Date de sortie:</span>
+                                    <p class="font-medium">PLACEHOLDER</p>
+                                </div>
+
+                                <div>
+                                    <span class="text-gray-600">Note:</span>
+                                    <div class="flex items-center gap-1">
+                                        {% if note %}
+                                        <div class="flex">
+                                            {% for i in 1..5 %}
+                                            {% if i <= note %} <i class="fa-solid fa-star text-yellow-400"></i>
+                                                {% else %}
+                                                <i class="fa-regular fa-star text-gray-300"></i>
+                                                {% endif %}
+                                                {% endfor %}
+                                        </div>
+                                        <span class="font-medium">
+                                            ({{ note }}/5) ({% if game.steamRatingCount %}{{game.steamRatingCount}}{%
+                                            endif %})
+                                        </span>
+                                        {% else %}
+                                        <p class="text-gray-400">{{'gamecard.unavailable_note'|trans}}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
+
+                            <button class="flex gap-2 items-center border border-gray-200 hover:border-gray-300 rounded-lg px-4 py-2">
+                                <i class="fa-solid fa-share-nodes"></i>
+                                <span>Partager</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -65,8 +115,10 @@
                     <div class="space-y-3 mb-6">
                         {% for deal in deals %}
                         <label class="block">
-                            <input type="radio" name="platform" value="" class="sr-only">
-                            <div class="border rounded-lg px-4 py-3 cursor-pointer transition-colors">
+                            <input type="radio" name="platform" value="{{ deal.dealID }}" class="sr-only peer" {% if
+                                dealID==deal.dealID %} checked {% endif %}>
+                            <div
+                                class="border-2 border-gray-200 rounded-lg px-4 py-3 cursor pointer transition-colors hover:border-gray-300 peer-checked:border-blue-600 peer-checked:bg-blue-50">
                                 <div class="flex items-center justify-between">
                                     <div class="flex flex-col gap-2">
                                         {# Store badge #}
@@ -76,12 +128,10 @@
 
                                         {# Prices #}
                                         <div class="flex items-center gap-2">
-                                            {% if deal.savings <= 0 %} {% set isOnSale=false %} <span
-                                                class="font-bold text-gray-900">
+                                            {% if deal.savings <= 0 %} <span class="font-bold text-gray-900">
                                                 {{ deal.retailPrice }}€
                                                 </span>
                                                 {% else %}
-                                                {% set isOnSale=true %}
                                                 <span class="font-bold text-blue-600">
                                                     {% if deal.price <= 0 %} FREE {% else %} {{ deal.price }}€ {% endif
                                                         %} </span>
@@ -146,4 +196,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

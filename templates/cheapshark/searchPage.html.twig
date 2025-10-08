@@ -28,10 +28,8 @@
                         <div class="flex flex-col gap-2 max-h-48 overflow-y-auto">
                             {% for store in app.session.get('stores') %}
                             <div class="flex gap-2">
-                                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" 
-                                {% if store in stores %}
-                                checked
-                                {% endif %}>
+                                <input type="checkbox" name="stores[]" id="{{ store }}" value="{{ store }}" {% if store
+                                    in stores %} checked {% endif %}>
                                 <label for="{{ store }}">{{ store }}</label>
                             </div>
                             {% endfor %}
@@ -128,10 +126,7 @@
 
                     {# On sale filter #}
                     <div class="flex gap-2">
-                        <input id="onSale" name="onSale" type="checkbox" 
-                        {% if options.onSale %}
-                        checked
-                        {% endif %}>
+                        <input id="onSale" name="onSale" type="checkbox" {% if options.onSale %} checked {% endif %}>
                         <label for="onSale" class="font-medium">En promo uniquement</label>
                     </div>
 
@@ -152,7 +147,8 @@
             {# MAIN CONTENT #}
             <div class="flex-1">
                 {# TOOL BAR #}
-                <div class="bg-gray-50 shadow-sm rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div
+                    class="bg-gray-50 shadow-sm rounded-lg p-4 mb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div class="flex items-center gap-4 w-full sm:w-auto">
                         {# MOBILE FILTERS #}
 
@@ -217,16 +213,17 @@
                             'note': options.steamRating,
                             'lowerPrice': options.lowerPrice,
                             'upperPrice': options.upperPrice                     
-                        }) }}" class="px-3 py-2 rounded-lg shadow-sm border border-gray-700 hover:bg-gray-100"><</a>
-                        {% endif %}
+                        }) }}" class="px-3 py-2 rounded-lg shadow-sm border border-gray-700 hover:bg-gray-100">
+                            << /a>
+                                {% endif %}
 
-                        {# Page courante #}
-                        <span class="px-3 py-2 rounded-lg shadow-sm bg-blue-600 font-semibold text-white">{{
-                            options.pageNumber + 1 }}</span>
+                                {# Page courante #}
+                                <span class="px-3 py-2 rounded-lg shadow-sm bg-blue-600 font-semibold text-white">{{
+                                    options.pageNumber + 1 }}</span>
 
-                        {# Page suivante #}
-                        {% if games|length == 20 %}
-                        <a href="{{ path('app_cheapshark_search', {
+                                {# Page suivante #}
+                                {% if games|length == 20 %}
+                                <a href="{{ path('app_cheapshark_search', {
                             'title': options.title, 
                             'stores': stores, 
                             'pageNumber': options.pageNumber + 1,
@@ -238,57 +235,63 @@
                             'lowerPrice': options.lowerPrice,
                             'upperPrice': options.upperPrice
                         }) }}" class="px-3 py-2 rounded-lg shadow-sm border border-gray-700 hover:bg-gray-100">></a>
-                        {% endif %}
-                        {% endif %}
+                                {% endif %}
+                                {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
+</div>
+
+{% endblock %}
 
 
-    <script>
+{% block javascript %}
 
-        // APPLY FILTERS BUTTON
-        document.getElementById('applyFilters').addEventListener('click', function () {
-            const form = document.getElementById('filterForm');
-            const params = new URLSearchParams();
+<script>
 
-            // Récupère les checkboxes "stores"
-            const stores = Array.from(form.querySelectorAll('input[name="stores[]"]:checked'))
-                .map(el => el.value);
-            stores.forEach(store => params.append('stores[]', store));
+    // APPLY FILTERS BUTTON
+    document.getElementById('applyFilters').addEventListener('click', function () {
+        const form = document.getElementById('filterForm');
+        const params = new URLSearchParams();
 
-            // Récupère les sliders
-            const lower = form.querySelector('#range-min')?.value || 0;
-            const upper = form.querySelector('#range-max')?.value || 500;
-            params.append('lowerPrice', lower);
-            params.append('upperPrice', upper);
+        // Récupère les checkboxes "stores"
+        const stores = Array.from(form.querySelectorAll('input[name="stores[]"]:checked'))
+            .map(el => el.value);
+        stores.forEach(store => params.append('stores[]', store));
 
-            const promo = form.querySelector('#onSale');
-            if (promo && promo.checked) {
-                params.append('onSale', '1');
-            }
+        // Récupère les sliders
+        const lower = form.querySelector('#range-min')?.value || 0;
+        const upper = form.querySelector('#range-max')?.value || 500;
+        params.append('lowerPrice', lower);
+        params.append('upperPrice', upper);
 
-
-            const options = {{ options|json_encode|raw }};
-            
-            params.append('title', options.title);
-            params.append('sortBy', options.sortBy);
-            params.append('pageSize', options.pageSize);
-            params.append('desc', options.desc);
+        const promo = form.querySelector('#onSale');
+        if (promo && promo.checked) {
+            params.append('onSale', '1');
+        }
 
 
-            // Construit l’URL de redirection
-            const baseUrl = "{{ path('app_cheapshark_search') }}";
-            window.location.href = `${baseUrl}?${params.toString()}`;
+        const options = {{ options| json_encode | raw
+    }};
+
+    params.append('title', options.title);
+    params.append('sortBy', options.sortBy);
+    params.append('pageSize', options.pageSize);
+    params.append('desc', options.desc);
+
+
+    // Construit l’URL de redirection
+    const baseUrl = "{{ path('app_cheapshark_search') }}";
+    window.location.href = `${baseUrl}?${params.toString()}`;
         });
 
-        // RESET FILTERS BUTTON
-        document.getElementById('resetFilters').addEventListener('click', function () {
-            window.location.href = "{{ path('app_cheapshark_search') }}";
-        });
-    </script>
+    // RESET FILTERS BUTTON
+    document.getElementById('resetFilters').addEventListener('click', function () {
+        window.location.href = "{{ path('app_cheapshark_search') }}";
+    });
+</script>
 
-    {% endblock %}
+{% endblock %}
