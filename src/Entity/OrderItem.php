@@ -14,7 +14,7 @@ class OrderItem
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Order $orderItem = null;
 
     #[ORM\Column(length: 255)]
@@ -28,6 +28,9 @@ class OrderItem
 
     #[ORM\Column]
     private ?int $quantity = null;
+
+    #[ORM\Column]
+    private ?string $gameImage = null;
 
     public function getId(): ?int
     {
@@ -90,6 +93,26 @@ class OrderItem
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of gameImage
+     */ 
+    public function getGameImage()
+    {
+        return $this->gameImage;
+    }
+
+    /**
+     * Set the value of gameImage
+     *
+     * @return  self
+     */ 
+    public function setGameImage($gameImage)
+    {
+        $this->gameImage = $gameImage;
 
         return $this;
     }

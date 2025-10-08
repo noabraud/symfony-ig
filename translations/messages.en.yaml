@@ -14,6 +14,7 @@ menu:
   best_sellers: "Best Sellers"
   platforms: "Platforms"
   search: "Search for a game..."
+  my_games: "My Games"
 head:
   title: "My Game Store"
 login:
@@ -168,3 +169,10 @@ gamepage:
   cheapest: "Lowest Price"
   instead: "instead of"
   store: "Store"
+
+user_games:
+  title: "My Games"
+  no_games: "You have no games in your library."
+  quantity: "quantity"
+  price: "price"
+  purchased_on: "purchased on"

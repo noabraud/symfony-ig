@@ -24,11 +24,11 @@ final class PaymentController extends AbstractController
 
         $session = $stripeManager->createCheckoutSession(
             $user,
-            $this->generateUrl('app_payment_success', [], 0),
-            $this->generateUrl('app_cart', [], 0)
+            'http://127.0.0.1:8000/payment/success',
+            'http://127.0.0.1:8000/cart'
         );
+return $this->redirect($session->url);
 
-        return $this->redirect($session->url);
     }
 
     #[Route('/payment/success', name: 'app_payment_success')]
@@ -38,6 +38,7 @@ final class PaymentController extends AbstractController
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
+
         $cartItems = $cartManager->getCartItems($user);
         $total = $cartManager->getCartTotal($user);
 
@@ -46,21 +47,24 @@ final class PaymentController extends AbstractController
         $order->setTotal($total);
         $order->setOrderNumber('CMD-' . strtoupper(substr(md5(uniqid()), 0, 8)));
 
-        foreach ($cartItems as $cartItem) {
+        foreach ($cartItems as $dealID => $cartItem) {
             $orderItem = new OrderItem();
             $orderItem->setOrderItem($order);
-            $orderItem->setGameId($cartItem->getGame()->getId());
-            $orderItem->setGameTitle($cartItem->getGame()->getTitle());
-            $orderItem->setPrice($cartItem->getGame()->getPrice());
-            $orderItem->setQuantity($cartItem->getQuantity());
+            $orderItem->setGameId($dealID); // dealID depuis le panier
+            $orderItem->setGameTitle($cartItem['title'] ?? 'Jeu inconnu');
+            $orderItem->setPrice($cartItem['price'] ?? 0);
+            $orderItem->setQuantity($cartItem['quantity'] ?? 1);
+            $orderItem->setGameImage($cartItem['thumb'] ?? '');
 
             $em->persist($orderItem);
         }
+        //dd($orderItem);
 
         $em->persist($order);
         $em->flush();
 
         $cartManager->clearCart($user);
+
         $message = $translator->trans('payment_success.flash', [], 'messages');
         $this->addFlash('success2', $message);
 
