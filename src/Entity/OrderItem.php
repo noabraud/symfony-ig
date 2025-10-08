@@ -29,6 +29,9 @@ class OrderItem
     #[ORM\Column]
     private ?int $quantity = null;
 
+    #[ORM\Column]
+    private ?string $gameImage = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,26 @@ class OrderItem
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of gameImage
+     */ 
+    public function getGameImage()
+    {
+        return $this->gameImage;
+    }
+
+    /**
+     * Set the value of gameImage
+     *
+     * @return  self
+     */ 
+    public function setGameImage($gameImage)
+    {
+        $this->gameImage = $gameImage;
 
         return $this;
     }

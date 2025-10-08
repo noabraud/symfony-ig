@@ -20,7 +20,7 @@ class OrderItemRepository extends ServiceEntityRepository
     public function findByUser(User $user): array
 {
     return $this->createQueryBuilder('oi')
-        ->join('oi.order', 'o')
+        ->join('oi.orderItem', 'o')
         ->andWhere('o.User = :user')
         ->setParameter('user', $user)
         ->orderBy('o.createdAt', 'DESC')

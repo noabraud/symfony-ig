@@ -54,6 +54,7 @@ return $this->redirect($session->url);
             $orderItem->setGameTitle($cartItem['title'] ?? 'Jeu inconnu');
             $orderItem->setPrice($cartItem['price'] ?? 0);
             $orderItem->setQuantity($cartItem['quantity'] ?? 1);
+            $orderItem->setGameImage($cartItem['thumb'] ?? '');
 
             $em->persist($orderItem);
         }
