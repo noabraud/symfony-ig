@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Offres - {{ game.name }}{% endblock %}
+{% block title %} {{'gamepage.offers'|trans}} - {{ game.name }}{% endblock %}
 
 {% block body %}
 
@@ -10,7 +10,7 @@
         <div class="container mx-auto px-4 py-4">
             <button class="flex items-center gap-2 px-3 py-2 rounded-lg font-semibold hover:bg-gray-100">
                 <i class="fa-solid fa-arrow-left"></i>
-                Retour
+                {{'gamepage.return'|trans}}
             </button>
         </div>
     </div>
@@ -50,20 +50,20 @@
                             <div class="grid grid-cols-2 gap-4 text-sm">
                                 {# Game infos #}
                                 <div>
-                                    <span class="text-gray-600">Développeur:</span>
+                                    <span class="text-gray-600">{{'gamepage.developer'|trans}}:</span>
                                     <p class="font-medium">PLACEHOLDER</p>
                                 </div>
                                 <div>
-                                    <span class="text-gray-600">Éditeur:</span>
+                                    <span class="text-gray-600">{{'gamepage.publisher'|trans}}:</span>
                                     <p class="font-medium">PLACEHOLDER</p>
                                 </div>
                                 <div>
-                                    <span class="text-gray-600">Date de sortie:</span>
+                                    <span class="text-gray-600">{{'gamepage.release_date'|trans}}:</span>
                                     <p class="font-medium">PLACEHOLDER</p>
                                 </div>
 
                                 <div>
-                                    <span class="text-gray-600">Note:</span>
+                                    <span class="text-gray-600">{{'gamepage.rating'|trans}}:</span>
                                     <div class="flex items-center gap-1">
                                         {% if note %}
                                         <div class="flex">
@@ -87,7 +87,7 @@
 
                             <button class="flex gap-2 items-center border border-gray-200 hover:border-gray-300 rounded-lg px-4 py-2">
                                 <i class="fa-solid fa-share-nodes"></i>
-                                <span>Partager</span>
+                                <span>{{'gamepage.share'|trans}}</span>
                             </button>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
 
                 {# Screenshots carousel #}
                 <div class="bg-gray-50 shadow-sm rounded-lg p-6">
-                    <h2 class="text-xl font-semibold mb-4">Captures d'écran</h2>
+                    <h2 class="text-xl font-semibold mb-4">{{'gamepage.screenshots'|trans}}</h2>
                     <div class="relative">
 
                     </div>
@@ -110,7 +110,7 @@
             {# Sidebar #}
             <div class="lg:col-span-1">
                 <div class="bg-gray-50 shadow-sm rounded-lg p-6 sticky top-20">
-                    <h3 class="font-semibold mb-4">Acheter ce jeu</h3>
+                    <h3 class="font-semibold mb-4">{{'gamepage.purchase'|trans}}</h3>
 
                     <form action="{{ path('app_cart_add') }}" method="get">
                         <div class="space-y-3 mb-6">
@@ -128,7 +128,7 @@
                                                     <span class="font-bold text-gray-900">{{ deal.retailPrice }}€</span>
                                                 {% else %}
                                                     <span class="font-bold text-blue-600">
-                                                        {% if deal.price <= 0 %} FREE {% else %} {{ deal.price }}€ {% endif %}
+                                                        {% if deal.price <= 0 %} {{'gamepage.free'|trans}} {% else %} {{ deal.price }}€ {% endif %}
                                                     </span>
                                                     <span class="text-sm text-gray-500 line-through">{{ deal.retailPrice }}€</span>
                                                     <span class="bg-red-600 text-white rounded-md px-2 py-1 text-xs font-semibold">
@@ -146,7 +146,7 @@
 
                         <button type="submit" class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
                             <i class="fa-solid fa-cart-shopping"></i>
-                            Ajouter au panier
+                            {{'gamepage.add_to_cart'|trans}}
                         </button>
                     </form>
 
@@ -156,24 +156,24 @@
                     <div class="space-y-3 text-sm">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-shield text-green-600"></i>
-                            <span>Activation immédiate</span>
+                            <span>{{'gamepage.instant_activation'|trans}}</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-download text-blue-600"></i>
-                            <span>Téléchargement numérique</span>
+                            <span>{{'gamepage.numeric_download'|trans}}</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-user-group text-purple-600"></i>
-                            <span>Mode solo et multijoueur</span>
+                            <span>{{'gamepage.mode'|trans}}</span>
                         </div>
                     </div>
 
                     <div class="bg-gray-200 w-full h-1 my-4 rounded-lg"></div>
 
                     <div class="text-xs text-gray-600">
-                        <p class="mb-2">✓ Garantie de remboursement 30 jours</p>
-                        <p class="mb-2">✓ Support client 24/7</p>
-                        <p class="mb-2">✓ Clé authentique garantie</p>
+                        <p class="mb-2">✓ {{'gamepage.guarantee'|trans}}</p>
+                        <p class="mb-2">✓ {{'gamepage.support'|trans}}</p>
+                        <p class="mb-2">✓ {{'gamepage.authentic'|trans}}</p>
                     </div>
                 </div>
             </div>
