@@ -18,9 +18,7 @@ class CheapsharkApi
         'Epic Games' => 25
     ];
 
-    private $filters = [
-        
-    ];
+    private $filters = [];
 
     //-- Methods --\\
     public function __construct(HttpClientInterface $c)
@@ -41,6 +39,18 @@ class CheapsharkApi
             return $result;
         }
         return $this->storesID;
+    }
+
+    public function getRating(array $game): int
+    {
+        if ($game['metacriticScore'] && $game['steamRatingPercent']) {
+            return floor(($game['metacriticScore'] + $game['steamRatingPercent']) / 2 / 20);
+        } else if ($game['metacriticScore'] && !$game['steamRatingPercent']) {
+            return floor($game['metacriticScore'] / 20);
+        } else if (!$game['metacriticScore'] && $game['steamRatingPercent']) {
+            return floor($game['steamRatingPercent'] / 20);
+        }
+        return false;
     }
 
     public function filterDealsByAllowedStores(array $deals, array $stores): array

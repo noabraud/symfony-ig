@@ -1,7 +1,7 @@
 <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden group">
     {# Image container #}
     <div class="relative overflow-hidden aspect-[16/9] w-full">
-        <a href="{{ path('app_cheapshark_game', {'id': game.gameID}) }}">
+        <a href="{{ path('app_cheapshark_game', {'gameID': game.gameID, 'dealID': game.dealID}) }}">
             <img src="{{ game.thumb }}" alt="{{ game.title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         </a>
@@ -26,27 +26,17 @@
 
         {# Rating #}
         <div class="flex items-center gap-1 mb-3">
-            {% if game.metacriticScore and game.steamRatingPercent %}
-            {% set rating = ((game.metacriticScore + game.steamRatingPercent) / 2 / 20)|round(0) %}
-            {% elseif game.metacriticScore and not game.steamRatingPercent %}
-            {% set rating = (game.metacriticScore / 20)|round(0) %}
-            {% elseif not game.metacriticScore and game.steamRatingPercent %}
-            {% set rating = (game.steamRatingPercent / 20)|round(0) %}
-            {% else %}
-            {% set rating = false %}
-            {% endif %}
-
-            {% if rating %}
+            {% if game.note %}
             <div class="flex">
                 {% for i in 1..5 %}
-                {% if i <= rating %} <i class="fa-solid fa-star text-yellow-400"></i>
+                {% if i <= game.note %} <i class="fa-solid fa-star text-yellow-400"></i>
                     {% else %}
                     <i class="fa-regular fa-star text-gray-300"></i>
                     {% endif %}
                     {% endfor %}
             </div>
             <span class="text-sm text-gray-600 ml-1">
-                ({{ rating }}/5)
+                ({{ game.note }}/5)
             </span>
             {% else %}
             <p class="text-gray-400">{{'gamecard.unavailable_note'|trans}}</p>

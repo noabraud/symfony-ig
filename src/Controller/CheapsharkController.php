@@ -26,6 +26,22 @@ final class CheapsharkController extends AbstractController
         $savings = $api->getFrom('deals', ['storeID' => $api->getStoresID(), 'pageSize' => 8, 'sortBy' => 'Savings']);
         $best = $api->getFrom('deals', ['storeID' => $api->getStoresID(), 'pageSize' => 8, 'sortBy' => 'DealRating']);
 
+        
+        foreach ($new as &$game) {
+            $game['note'] = $api->getRating($game);
+        }
+        unset($game);
+        
+        foreach ($savings as &$game) {
+            $game['note'] = $api->getRating($game);
+        }
+        unset($game);
+        
+        foreach ($best as &$game) {
+            $game['note'] = $api->getRating($game);
+        }
+        unset($game);
+
         return $this->render('cheapshark/index.html.twig', [
             'new' => $new,
             'savings' => $savings,
@@ -36,16 +52,21 @@ final class CheapsharkController extends AbstractController
     #[Route('/game', name: 'app_cheapshark_game', methods: ['GET'])]
     public function game(Request $request, CheapsharkApi $api): Response
     {
-        $id = $request->query->get('id');
+        $gameID = $request->query->get('gameID');
+        $dealID = rawurldecode($request->query->get('dealID'));
 
-        if ($id) {
-            $game = $api->getFrom('games', ['id' => $id]);
-        }
+        $game = $api->getFrom('deals', ['id' => $dealID])['gameInfo'];
+        $deals = $api->getFrom('games', ['id' => $gameID]);
+
+        $dealID = rawurlencode($dealID);
+
+        $note = $api->getRating($game);
 
         return $this->render('cheapshark/gamePage.html.twig', [
-            'title' => $game['info']['title'],
-            'image' => $game['info']['thumb'],
-            'deals' => $api->filterDealsByAllowedStores($game['deals'], $api->getStoresID()),
+            'deals' => $api->filterDealsByAllowedStores($deals['deals'], $api->getStoresID()),
+            'note' => $note,
+            'game' => $game,
+            'dealID' => $dealID,
         ]);
     }
 
@@ -54,8 +75,7 @@ final class CheapsharkController extends AbstractController
     {
         $stores = $request->query->all('stores');
 
-        if (sizeof($stores) <= 0)
-        {
+        if (sizeof($stores) <= 0) {
             $stores = ['Steam', 'GOG', 'Ubisoft Connect', 'Epic Games'];
         }
 
@@ -72,8 +92,13 @@ final class CheapsharkController extends AbstractController
             'lowerPrice' => $request->query->getInt('lowerPrice', 0),
             'upperPrice' => $request->query->getInt('upperPrice', 500),
         ];
-        
+
         $games = $api->getFrom('deals',  $options);
+
+        foreach ($games as &$game) {
+            $game['note'] = $api->getRating($game);
+        }
+        unset($game);
 
         return $this->render('cheapshark/searchPage.html.twig', [
             'games' => $games,
