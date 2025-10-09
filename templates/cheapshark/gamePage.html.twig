@@ -112,56 +112,47 @@
                 <div class="bg-gray-50 shadow-sm rounded-lg p-6 sticky top-20">
                     <h3 class="font-semibold mb-4">Acheter ce jeu</h3>
 
-                    <div class="space-y-3 mb-6">
-                        {% for deal in deals %}
-                        <label class="block">
-                            <input type="radio" name="platform" value="{{ deal.dealID }}" class="sr-only peer" {% if
-                                dealID==deal.dealID %} checked {% endif %}>
-                            <div
-                                class="border-2 border-gray-200 rounded-lg px-4 py-3 cursor pointer transition-colors hover:border-gray-300 peer-checked:border-blue-600 peer-checked:bg-blue-50">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex flex-col gap-2">
-                                        {# Store badge #}
-                                        <span class="bg-gray-200 rounded-md px-2 py-1 text-sm font-semibold">
-                                            {{ app.session.get('stores')[deal.storeID] }}
-                                        </span>
-
-                                        {# Prices #}
-                                        <div class="flex items-center gap-2">
-                                            {% if deal.savings <= 0 %} <span class="font-bold text-gray-900">
-                                                {{ deal.retailPrice }}€
-                                                </span>
+                    <form action="{{ path('app_cart_add') }}" method="get">
+                        <div class="space-y-3 mb-6">
+                            {% for deal in deals %}
+                            <label class="block">
+                                <input type="radio" name="id" value="{{ deal.dealID }}" class="sr-only peer" {% if dealID==deal.dealID %} checked {% endif %}>
+                                <div class="border-2 border-gray-200 rounded-lg px-4 py-3 cursor-pointer transition-colors hover:border-gray-300 peer-checked:border-blue-600 peer-checked:bg-blue-50">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex flex-col gap-2">
+                                            <span class="bg-gray-200 rounded-md px-2 py-1 text-sm font-semibold">
+                                                {{ app.session.get('stores')[deal.storeID] }}
+                                            </span>
+                                            <div class="flex items-center gap-2">
+                                                {% if deal.savings <= 0 %}
+                                                    <span class="font-bold text-gray-900">{{ deal.retailPrice }}€</span>
                                                 {% else %}
-                                                <span class="font-bold text-blue-600">
-                                                    {% if deal.price <= 0 %} FREE {% else %} {{ deal.price }}€ {% endif
-                                                        %} </span>
-                                                        <span class="text-sm text-gray-500 line-through">
-                                                            {{ deal.retailPrice }}€
-                                                        </span>
-                                                        <span
-                                                            class="bg-red-600 text-white rounded-md px-2 py-1 text-xs font-semibold">
-                                                            -{{ deal.savings|round(0) }}%
-                                                        </span>
-                                                        {% endif %}
+                                                    <span class="font-bold text-blue-600">
+                                                        {% if deal.price <= 0 %} FREE {% else %} {{ deal.price }}€ {% endif %}
+                                                    </span>
+                                                    <span class="text-sm text-gray-500 line-through">{{ deal.retailPrice }}€</span>
+                                                    <span class="bg-red-600 text-white rounded-md px-2 py-1 text-xs font-semibold">
+                                                        -{{ deal.savings|round(0) }}%
+                                                    </span>
+                                                {% endif %}
+                                            </div>
                                         </div>
+                                        <i class="fa-solid fa-download text-gray-400"></i>
                                     </div>
-                                    <i class="fa-solid fa-download text-gray-400"></i>
                                 </div>
-                            </div>
-                        </label>
-                        {% endfor %}
-                    </div>
+                            </label>
+                            {% endfor %}
+                        </div>
 
-                    <a href="{{ path('app_cart_add') }}?id={{ dealID }}"
-                        class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        {{'gamecard.add_to_cart'|trans}}
-                    </a>
+                        <button type="submit" class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            Ajouter au panier
+                        </button>
+                    </form>
 
-                    {# Separator #}
+                    {# Tu peux garder tes infos supplémentaires après le formulaire, comme Garantie / Support / Clé authentique #}
                     <div class="bg-gray-200 w-full h-1 my-4 rounded-lg"></div>
 
-                    {# More informations #}
                     <div class="space-y-3 text-sm">
                         <div class="flex items-center gap-2">
                             <i class="fa-solid fa-shield text-green-600"></i>
@@ -177,23 +168,16 @@
                         </div>
                     </div>
 
-                    {# Separator #}
                     <div class="bg-gray-200 w-full h-1 my-4 rounded-lg"></div>
 
                     <div class="text-xs text-gray-600">
-                        <p class="mb-2">
-                            ✓ Garantie de remboursement 30 jours
-                        </p>
-                        <p class="mb-2">
-                            ✓ Support client 24/7
-                        </p>
-                        <p class="mb-2">
-                            ✓ Clé authentique garantie
-                        </p>
+                        <p class="mb-2">✓ Garantie de remboursement 30 jours</p>
+                        <p class="mb-2">✓ Support client 24/7</p>
+                        <p class="mb-2">✓ Clé authentique garantie</p>
                     </div>
-
                 </div>
             </div>
+
         </div>
     </div>
 </div>

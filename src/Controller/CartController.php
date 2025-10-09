@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Service\CartManager;
+use App\Service\CheapsharkApi;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -30,7 +31,7 @@ final class CartController extends AbstractController
     }
 
     #[Route('/cart/add', name: 'app_cart_add', methods: ['GET'])]
-    public function addToCart(Request $request, CartManager $cartManager): Response
+    public function addToCart(Request $request, CartManager $cartManager, CheapsharkApi $cheapsharkApi): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -41,10 +42,8 @@ final class CartController extends AbstractController
         if (!$id) {
             throw $this->createNotFoundException('DealID manquant.');
         }
-
-        $apiUrl = "https://www.cheapshark.com/api/1.0/deals?id=" . $id;
-        $response = file_get_contents($apiUrl);
-        $gameData = json_decode($response, true);
+        $id = rawurldecode($id);
+        $gameData = $cheapsharkApi->getFrom('deals', ['id' => $id]);
 
         if (!$gameData || !isset($gameData['gameInfo'])) {
             throw $this->createNotFoundException('Impossible de récupérer le jeu depuis l’API.');
