@@ -152,10 +152,11 @@
                         {% endfor %}
                     </div>
 
-                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
+                    <a href="{{ path('app_cart_add') }}?id={{ dealID }}"
+                        class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
                         <i class="fa-solid fa-cart-shopping"></i>
-                        Ajouter au panier
-                    </button>
+                        {{'gamecard.add_to_cart'|trans}}
+                    </a>
 
                     {# Separator #}
                     <div class="bg-gray-200 w-full h-1 my-4 rounded-lg"></div>
