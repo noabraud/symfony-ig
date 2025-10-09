@@ -85,7 +85,8 @@
                                 </div>
                             </div>
 
-                            <button class="flex gap-2 items-center border border-gray-200 hover:border-gray-300 rounded-lg px-4 py-2">
+                            <button
+                                class="flex gap-2 items-center border border-gray-200 hover:border-gray-300 rounded-lg px-4 py-2">
                                 <i class="fa-solid fa-share-nodes"></i>
                                 <span>Partager</span>
                             </button>
@@ -103,7 +104,179 @@
 
                 {# Content tabs #}
                 <div class="bg-gray-50 shadow-sm rounded-lg p-6">
+                    <div class="w-full">
+                        <!-- Onglets -->
+                        <div class="grid w-full grid-cols-3 mb-6">
+                            <button
+                                class="tab-trigger px-4 py-2 rounded-t-lg font-semibold text-gray-600 bg-gray-100 active"
+                                data-target="description">
+                                Description
+                            </button>
+                            <button class="tab-trigger px-4 py-2 rounded-t-lg font-semibold text-gray-600 bg-gray-100"
+                                data-target="requirements">
+                                Configuration
+                            </button>
+                            <button class="tab-trigger px-4 py-2 rounded-t-lg font-semibold text-gray-600 bg-gray-100"
+                                data-target="reviews">
+                                Avis ({{ game.steamRatingCount }})
+                            </button>
+                        </div>
 
+                        <!-- Contenu : Description -->
+                        <div id="description" class="tab-content block mt-6 space-y-6">
+                            <div>
+                                <h3 class="font-semibold mb-3">À propos du jeu</h3>
+                                <p class="text-gray-700 leading-relaxed">game.description</p>
+                            </div>
+
+                            {% if game.features is defined %}
+                            <div>
+                                <h3 class="font-semibold mb-3">Caractéristiques principales</h3>
+                                <ul class="space-y-2">
+                                    {% for feature in game.features %}
+                                    <li class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                        <span class="text-gray-700">{{ feature }}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Contenu : Configuration -->
+                        <div id="requirements" class="tab-content hidden mt-6">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <h3 class="font-semibold mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-desktop w-5 h-5"></i>
+                                        Configuration minimale
+                                    </h3>
+                                    <div class="space-y-3">
+                                        <div><span class="text-sm text-gray-600">OS :</span>
+                                            <p class="font-medium">game.systemRequirements.minimum.os</p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Processeur :</span>
+                                            <p class="font-medium">game.systemRequirements.minimum.processor</p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Mémoire :</span>
+                                            <p class="font-medium">game.systemRequirements.minimum.memory</p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Graphiques :</span>
+                                            <p class="font-medium">game.systemRequirements.minimum.graphics</p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Stockage :</span>
+                                            <p class="font-medium">game.systemRequirements.minimum.storage</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 class="font-semibold mb-4 flex items-center gap-2">
+                                        <i class="fa-solid fa-microchip w-5 h-5"></i>
+                                        Configuration recommandée
+                                    </h3>
+                                    <div class="space-y-3">
+                                        <div><span class="text-sm text-gray-600">OS :</span>
+                                            <p class="font-medium">game.systemRequirements.recommended.os</p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Processeur :</span>
+                                            <p class="font-medium">game.systemRequirements.recommended.processor
+                                            </p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Mémoire :</span>
+                                            <p class="font-medium">game.systemRequirements.recommended.memory</p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Graphiques :</span>
+                                            <p class="font-medium">game.systemRequirements.recommended.graphics
+                                            </p>
+                                        </div>
+                                        <div><span class="text-sm text-gray-600">Stockage :</span>
+                                            <p class="font-medium">game.systemRequirements.recommended.storage</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contenu : Avis -->
+                        <div id="reviews" class="tab-content hidden mt-6">
+                            <div class="space-y-6">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-2xl font-bold">{{ note }}</span>
+                                                <div class="flex">
+                                                    {% for i in 1..5 %}
+                                                    <i
+                                                        class="fa-solid fa-star {{ i <= note ? 'text-yellow-400' : 'text-gray-300' }}"></i>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <p class="text-sm text-gray-600">
+                                                Basé sur {{ game.steamRatingCount|number_format(0, '.', ' ') }} avis
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {% if ratingDistribution is defined %}
+                                    <div class="space-y-2">
+                                        {% for dist in ratingDistribution %}
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-sm w-8">{{ dist.stars }}★</span>
+                                            <div class="flex-1 bg-gray-200 h-2 rounded-full overflow-hidden">
+                                                <div class="bg-yellow-400 h-full"></div>
+                                            </div>
+                                            <span class="text-sm text-gray-600 w-12">{{ dist.percentage }}%</span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+
+                                {% if game.reviews is defined %}
+                                <div class="space-y-4">
+                                    {% for review in game.reviews %}
+                                    <div class="border-b pb-4 last:border-b-0">
+                                        <div class="flex items-start justify-between mb-2">
+                                            <div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="font-medium">{{ review.author }}</span>
+                                                    <span class="border px-2 py-0.5 text-xs rounded">{{ review.platform
+                                                        }}</span>
+                                                </div>
+                                                <div class="flex items-center gap-2 mt-1">
+                                                    <div class="flex">
+                                                        {% for i in 1..5 %}
+                                                        <i
+                                                            class="fa-solid fa-star {{ i <= review.rating ? 'text-yellow-400' : 'text-gray-300' }}"></i>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <span class="text-sm text-gray-600">{{ review.date }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-700 mb-3">{{ review.content }}</p>
+                                        <div class="flex items-center gap-4">
+                                            <button
+                                                class="flex items-center gap-1 text-sm text-gray-600 hover:text-green-600">
+                                                <i class="fa-solid fa-thumbs-up"></i>
+                                                Utile ({{ review.helpful }})
+                                            </button>
+                                            <button
+                                                class="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600">
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                                Pas utile
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -116,25 +289,29 @@
                         <div class="space-y-3 mb-6">
                             {% for deal in deals %}
                             <label class="block">
-                                <input type="radio" name="id" value="{{ deal.dealID }}" class="sr-only peer" {% if dealID==deal.dealID %} checked {% endif %}>
-                                <div class="border-2 border-gray-200 rounded-lg px-4 py-3 cursor-pointer transition-colors hover:border-gray-300 peer-checked:border-blue-600 peer-checked:bg-blue-50">
+                                <input type="radio" name="id" value="{{ deal.dealID }}" class="sr-only peer" {% if
+                                    dealID==deal.dealID %} checked {% endif %}>
+                                <div
+                                    class="border-2 border-gray-200 rounded-lg px-4 py-3 cursor-pointer transition-colors hover:border-gray-300 peer-checked:border-blue-600 peer-checked:bg-blue-50">
                                     <div class="flex items-center justify-between">
                                         <div class="flex flex-col gap-2">
                                             <span class="bg-gray-200 rounded-md px-2 py-1 text-sm font-semibold">
                                                 {{ app.session.get('stores')[deal.storeID] }}
                                             </span>
                                             <div class="flex items-center gap-2">
-                                                {% if deal.savings <= 0 %}
-                                                    <span class="font-bold text-gray-900">{{ deal.retailPrice }}€</span>
-                                                {% else %}
+                                                {% if deal.savings <= 0 %} <span class="font-bold text-gray-900">{{
+                                                    deal.retailPrice }}€</span>
+                                                    {% else %}
                                                     <span class="font-bold text-blue-600">
-                                                        {% if deal.price <= 0 %} FREE {% else %} {{ deal.price }}€ {% endif %}
-                                                    </span>
-                                                    <span class="text-sm text-gray-500 line-through">{{ deal.retailPrice }}€</span>
-                                                    <span class="bg-red-600 text-white rounded-md px-2 py-1 text-xs font-semibold">
-                                                        -{{ deal.savings|round(0) }}%
-                                                    </span>
-                                                {% endif %}
+                                                        {% if deal.price <= 0 %} FREE {% else %} {{ deal.price }}€ {%
+                                                            endif %} </span>
+                                                            <span class="text-sm text-gray-500 line-through">{{
+                                                                deal.retailPrice }}€</span>
+                                                            <span
+                                                                class="bg-red-600 text-white rounded-md px-2 py-1 text-xs font-semibold">
+                                                                -{{ deal.savings|round(0) }}%
+                                                            </span>
+                                                            {% endif %}
                                             </div>
                                         </div>
                                         <i class="fa-solid fa-download text-gray-400"></i>
@@ -144,13 +321,15 @@
                             {% endfor %}
                         </div>
 
-                        <button type="submit" class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
+                        <button type="submit"
+                            class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white rounded-md py-2">
                             <i class="fa-solid fa-cart-shopping"></i>
                             Ajouter au panier
                         </button>
                     </form>
 
-                    {# Tu peux garder tes infos supplémentaires après le formulaire, comme Garantie / Support / Clé authentique #}
+                    {# Tu peux garder tes infos supplémentaires après le formulaire, comme Garantie / Support / Clé
+                    authentique #}
                     <div class="bg-gray-200 w-full h-1 my-4 rounded-lg"></div>
 
                     <div class="space-y-3 text-sm">
@@ -181,5 +360,19 @@
         </div>
     </div>
 </div>
+
+<script>
+  document.querySelectorAll('.tab-trigger').forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.target;
+
+      document.querySelectorAll('.tab-trigger').forEach(btn => btn.classList.remove('active', 'bg-white', 'text-black'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+      
+      button.classList.add('active', 'bg-white', 'text-black');
+      document.getElementById(target).classList.remove('hidden');
+    });
+  });
+</script>
 
 {% endblock %}
