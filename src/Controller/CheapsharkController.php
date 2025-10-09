@@ -95,8 +95,6 @@ final class CheapsharkController extends AbstractController
 
         $games = $api->getFrom('deals',  $options);
 
-        var_dump($games);
-
         foreach ($games as &$game) {
             $game['note'] = $api->getRating($game);
         }
