@@ -87,12 +87,24 @@ order:
   created_at: "Créé le"
   total: "Total"
   actions: "Actions"
-  edit: "Modifier"
   no_records: "Aucun enregistrement trouvé"
   create_new: "Créer une nouvelle commande"
   delete:
     label: "Supprimer"
     confirm: "Êtes-vous sûr de vouloir supprimer cette commande ?"
+  edit:
+    button: "Modifier"
+    title: "Modifier la commande"
+  form:
+    order_number: "Numéro de commande"
+    total: "Montant total (€)"
+    created_at: "Date de création"
+    user: "Utilisateur"
+    placeholder:
+      order_number: "Ex : CMD-2025-001"
+      total: "Ex : 49.99"
+      user: "Sélectionner un utilisateur"
+
 
 payment_success:
   title: "Paiement réussi"
