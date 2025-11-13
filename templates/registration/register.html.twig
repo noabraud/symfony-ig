@@ -1,33 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{'register.title'|trans}}{% endblock %}
+{% block title %}{{ 'register.title'|trans }}{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="bg-white shadow-lg rounded-2xl px-8 py-10 w-full max-w-md">
+        
+        {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="mb-4 text-sm text-red-600 bg-red-100 border border-red-300 rounded-lg p-3" role="alert">
+                {{ flash_error }}
+            </div>
+        {% endfor %}
 
-    <h1>{{'register.title'|trans}}</h1>
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
+            {{ 'register.title'|trans }}
+        </h1>
 
-    {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm, {'attr': {'class': 'space-y-4'}}) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email,
-            {
-                label: 'register.email'|trans
-            }
-        ) }}
-        {{ form_row(registrationForm.plainPassword, 
-            {
-                label: 'register.password'|trans
-            }
-        ) }}
-        {{ form_row(registrationForm.agreeTerms, 
-            {
-                label: 'register.agree_terms'|trans
-            }
-        ) }}
+            <div>
+                {{ form_label(registrationForm.email, 'register.email'|trans, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
 
-        <button type="submit" class="btn">{{'register.title'|trans}}</button>
-    {{ form_end(registrationForm) }}
+            <div>
+                {{ form_label(registrationForm.plainPassword, 'register.password'|trans, {'label_attr': {'class': 'block text-gray-700 font-medium mb-1'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none'}}) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="flex items-center space-x-2">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'h-4 w-4 text-blue-600 border-gray-300 rounded'}}) }}
+                {{ form_label(registrationForm.agreeTerms, 'register.agree_terms'|trans, {'label_attr': {'class': 'text-gray-700 text-sm'}}) }}
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button 
+                type="submit"
+                class="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+            >
+                {{ 'register.title'|trans }}
+            </button>
+
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
 {% endblock %}

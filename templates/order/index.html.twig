@@ -3,37 +3,72 @@
 {% block title %}{{ 'order.title'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>{{ 'order.title'|trans }}</h1>
+<div class="min-h-screen bg-gray-100 flex flex-col items-center py-10 px-4">
+    <div class="bg-white shadow-lg rounded-2xl w-full max-w-5xl p-8">
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">
+            {{ 'order.title'|trans }}
+        </h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>{{ 'order.order_number'|trans }}</th>
-                <th>{{ 'order.created_at'|trans }}</th>
-                <th>{{ 'order.total'|trans }}</th>           
-                <th>{{ 'order.actions'|trans }}</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for order in orders %}
-            <tr>
-                <td>{{ order.orderNumber }}</td>
-                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ order.total }} €</td> 
-                <td>
-                    <a href="{{ path('app_order_show', {'id': order.id}) }}">{{ 'order.show.action'|trans }}</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('app_order_edit', {'id': order.id}) }}">{{ 'order.edit'|trans }}</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">{{ 'order.no_records'|trans }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-200 divide-y divide-gray-200 rounded-lg">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            {{ 'order.order_number'|trans }}
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            {{ 'order.created_at'|trans }}
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            {{ 'order.total'|trans }}
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            {{ 'order.actions'|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for order in orders %}
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-sm text-gray-700">
+                                {{ order.orderNumber }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-700">
+                                {{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}
+                            </td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-800">
+                                {{ order.total }} €
+                            </td>
+                            <td class="px-6 py-4 text-sm space-x-2">
+                                <a href="{{ path('app_order_show', {'id': order.id}) }}" 
+                                   class="text-blue-600 hover:text-blue-800 font-medium transition">
+                                   {{ 'order.show.action'|trans }}
+                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_order_edit', {'id': order.id}) }}" 
+                                       class="text-yellow-600 hover:text-yellow-800 font-medium transition">
+                                       {{ 'order.edit.button'|trans }}
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                                {{ 'order.no_records'|trans }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_cart') }}">{{ 'order.create_new'|trans }}</a>
+        <div class="text-center mt-6">
+            <a href="{{ path('app_cart') }}" 
+               class="inline-block bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-200">
+               {{ 'order.create_new'|trans }}
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

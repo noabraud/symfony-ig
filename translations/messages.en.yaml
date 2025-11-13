@@ -86,12 +86,24 @@ order:
     action: 'Show'
     back_to_list: "Back to list"
     delete: "Delete"
-  edit: "Edit"
+  edit: 
+    button: "Edit"
+    title: "Edit Order"
   no_records: "No records found"
   create_new: "Create new order"
   delete: 
     label: "Delete"
     confirm: "Are you sure you want to delete this order?"
+  form:
+    order_number: "Order number"
+    total: "Total amount (€)"
+    created_at: "Created at"
+    user: "User"
+    placeholder:
+      order_number: "e.g. ORD-2025-001"
+      total: "e.g. 49.99"
+      user: "Select a user"
+
     
 payment_success:
   title: "Payment Successful"
